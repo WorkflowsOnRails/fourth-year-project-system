@@ -25,18 +25,8 @@ class Proposal < ActiveRecord::Base
     end
   end
 
-  # Creates the base Task and the Proposal for the specifed project
-  # and deadline. See {Task} for more information on required attributes.
-  def self.create(project: nil, deadline: nil)
-    Proposal.transaction do
-      proposal = super()
-      Task.create(
-        project: project,
-        taskable: proposal,
-        summary: "Proposal for #{project.name}",
-        deadline: deadline,
-      )
-    end
+  def self.summarize(project: nil, **options)
+    "Proposal for #{project.name}"
   end
 
   private
