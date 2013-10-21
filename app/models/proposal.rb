@@ -3,12 +3,8 @@
 #
 # @author Brendan MacDonell
 class Proposal < ActiveRecord::Base
+  include Taskable
   include AASM
-  extend Forwardable
-  has_one :task, as: :taskable
-
-  # Inherit attributes from the base Task.
-  def_delegators :task, :project, :deadline, :completed_at
 
   aasm do
     state :writing_submission, initial: true
