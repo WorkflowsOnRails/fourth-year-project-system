@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tissue Tracker</title>
+    <title>SYSC 4907</title>
     <%= stylesheet_link_tag "application", media: "all",
         "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
@@ -40,8 +40,8 @@
             </li>
           <% end %>
         </ul>
-        <% unless true %>
-          <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right">
+          <% if user_signed_in? %>
             <li>
               <%= link_to current_user.email, edit_user_registration_path,
                   class: 'navbar-link' %>
@@ -53,8 +53,13 @@
                 <span class="glyphicon glyphicon-log-out"></span>
               <% end %>
             </li>
-          </div>
-        <% end %>
+          <% else %>
+            <li>
+              <%= link_to 'Sign in', new_user_session_path,
+                  class: 'navbar-link' %>
+            </li>
+          <% end %>
+        </ul>
       </div>
     </nav>
 

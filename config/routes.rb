@@ -1,4 +1,6 @@
 FourthYearProjectSystem::Application.routes.draw do
+  devise_for :users, controllers: { :registrations => "users/registrations" }
+
   root 'style_test#index'
 
   # Example of regular route:
