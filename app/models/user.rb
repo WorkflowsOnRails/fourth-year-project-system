@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   with_options unless: :is_group_member? do |m|
     m.validates :programme, absence: true
     m.validates :student_number, absence: true
-    m.validates :project, absence: true
+    m.validates :project_id, absence: true
   end
 
   def is_group_member?
