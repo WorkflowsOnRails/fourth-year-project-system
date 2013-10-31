@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131031011100) do
+ActiveRecord::Schema.define(version: 20131031222645) do
 
   create_table "feedback_events", force: true do |t|
     t.integer  "submission_event_id", null: false
@@ -42,6 +42,15 @@ ActiveRecord::Schema.define(version: 20131031011100) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "projects_users", force: true do |t|
+    t.integer "user_id",    null: false
+    t.integer "project_id", null: false
+  end
+
+  add_index "projects_users", ["project_id"], name: "index_projects_users_on_project_id"
+  add_index "projects_users", ["user_id", "project_id"], name: "index_projects_users_on_user_id_and_project_id", unique: true
+  add_index "projects_users", ["user_id"], name: "index_projects_users_on_user_id"
 
   create_table "proposals", force: true do |t|
     t.string "aasm_state"

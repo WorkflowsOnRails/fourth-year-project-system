@@ -22,6 +22,16 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  # Use #leave_project, #join_project, and #tasks instead of the
+  # following associations. They would be made private, except
+  # ActiveRecord will fail if it can't call them.
+  belongs_to :project
+  has_and_belongs_to_many :projects
+  has_many :group_member_tasks, class_name: 'Task',
+           through: :project, source: :tasks
+  has_many :supervisor_tasks, class_name: 'Task',
+           through: :projects, source: :tasks
+
   validates :full_name, presence: true
   validates :role, inclusion: { in: ROLES }
 
@@ -48,5 +58,30 @@ class User < ActiveRecord::Base
 
   def is_coordinator?
     role == COORDINATOR_ROLE
+  end
+
+  def join_project(a_project)
+    if is_group_member?
+      self.project = a_project
+    elsif is_supervisor?
+      projects << a_project
+    end
+  end
+
+  def leave_project(a_project)
+    if is_group_member?
+      self.project = nil
+      save!
+    elsif is_supervisor?
+      projects.delete(a_project)
+    end
+  end
+
+  def tasks
+    if is_group_member?
+      group_member_tasks
+    elsif is_supervisor?
+      supervisor_tasks
+    end
   end
 end
