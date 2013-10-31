@@ -1,0 +1,10 @@
+<div class="task-posting-header">
+  <%= event.user.full_name %>
+  <%= feedback_event.accepted? ? 'accepted' : 'returned' %>
+  <a href="<%= feedback_event.submission_event.attachment.url %>">
+    <%= feedback_event.submission_event.attachment.original_filename %>
+  </a>
+</div>
+<div class="task-posting-comment">
+  <%= simple_format feedback_event.comment, wrapper_tag: 'div' %>
+</div>

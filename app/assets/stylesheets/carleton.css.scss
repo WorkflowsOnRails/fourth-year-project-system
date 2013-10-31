@@ -31,7 +31,7 @@ body {
 /* TODO: Adjust color of alert borders. */
 
 .banner-header {
-  height: 100px;
+  height: 80px;
   position: relative;
 
   .banner {
@@ -47,6 +47,9 @@ body {
     padding: 10px 40px;
     color: #f9f9f9;
     text-shadow: 2px 2px 1px #333;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .btn {

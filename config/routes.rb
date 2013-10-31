@@ -3,6 +3,12 @@ FourthYearProjectSystem::Application.routes.draw do
 
   root 'style_test#index'
 
+  resources :proposals
+  resources :tasks do
+    resources :submission_events, only: [:create]
+    resources :feedback_events, only: [:create]
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

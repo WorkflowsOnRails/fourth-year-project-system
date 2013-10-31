@@ -1,0 +1,21 @@
+<% content_for :banner do %>
+  <%= @proposal.task.summary %>
+<% end %>
+
+<div class="row">
+  <div class="col-md-7">
+    <h2>Instructions</h2>
+    <%= render partial: 'description.html.erb', locals: {proposal: @proposal} %>
+  </div>
+  <div class="col-md-5">
+    <h2>At a Glance</h2>
+    <%= render partial: 'state.html.erb', locals: {proposal: @proposal} %>
+    <div class="spacer"></div>
+    <%= render_document_task_actions %>
+  </div>
+</div>
+
+<h2>Submission History</h2>
+<%= render @log_events %>
+
+<%= will_paginate @log_events %>

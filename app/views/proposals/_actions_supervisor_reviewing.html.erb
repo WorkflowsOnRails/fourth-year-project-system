@@ -1,0 +1,16 @@
+<div class="task-actions">
+  <%= form_for [@proposal.task, FeedbackEvent.new],
+      html: {role: 'form'} do |f| %>
+    <%= f.hidden_field :submission_event_id,
+        value: @last_submission_event.id %>
+    <div class="form-group">
+      <%= f.text_area :comment, class: 'form-control' %>
+    </div>
+    <div class="form-group text-right">
+      <%= f.button 'Return', class: 'btn btn-default',
+          name: 'feedback_event[accepted]', value: '0' %>
+      <%= f.button 'Accept', class: 'btn btn-success',
+          name: 'feedback_event[accepted]', value: '1' %>
+    </div>
+  <% end %>
+</div>

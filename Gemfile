@@ -17,6 +17,7 @@ gem 'aasm', '~> 3.0.0'
 gem 'devise', '~> 3.1.1'
 gem 'anjlab-bootstrap-rails', '>= 3.0.0.0', :require => 'bootstrap-rails'
 gem 'simple_form', '~> 3.0.0rc'
+gem 'paperclip', '~> 3.0'
 gem 'will_paginate', '~> 3.0.0'
 gem 'stonepath', git: 'https://github.com/WorkflowsOnRails/stonepath.git', branch: 'rails-4'
 

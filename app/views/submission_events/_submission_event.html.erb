@@ -1,0 +1,9 @@
+<div class="task-posting-header">
+  <%= event.user.full_name %> submitted
+  <a href="<%= submission_event.attachment.url %>">
+    <%= submission_event.attachment.original_filename %>
+  </a>
+</div>
+<div class="task-posting-comment">
+  <%= simple_format submission_event.comment, wrapper_tag: 'div' %>
+</div>

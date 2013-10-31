@@ -8,6 +8,7 @@
 class Task < ActiveRecord::Base
   belongs_to :project
   belongs_to :taskable, polymorphic: true
+  has_many :log_events
 
   validates :taskable, presence: true
   validates :summary, presence: true

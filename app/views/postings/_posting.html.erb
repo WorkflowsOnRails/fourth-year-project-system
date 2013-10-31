@@ -1,0 +1,24 @@
+<div class="task-posting row">
+  <div class="col-md-2">
+    <span><%= posting.created_at %></span>
+  </div>
+  <div class="col-md-8">
+    <div class="task-posting-header">
+      <%= posting.user.full_name %>
+      <% if posting.posting_type == 'submission' %>
+        submitted
+        <a href="<%= posting.attachment.url %>">
+          <%= posting.attachment.original_filename %>
+        </a>
+      <% elsif posting.posting_type == 'comment' %>
+        commented on
+        <a href="<%= posting.parent.attachment.url %>">
+          <%= posting.parent.attachment.original_filename %>
+        </a>
+      <% end %>
+    </div>
+    <div class="task-posting-comment">
+      <%= simple_format posting.comment, wrapper_tag: 'div' %>
+    </div>
+  </div>
+</div>

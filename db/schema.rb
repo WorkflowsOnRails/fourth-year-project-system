@@ -11,7 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131027161520) do
+ActiveRecord::Schema.define(version: 20131031011100) do
+
+  create_table "feedback_events", force: true do |t|
+    t.integer  "submission_event_id", null: false
+    t.boolean  "accepted",            null: false
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "feedback_events", ["submission_event_id"], name: "index_feedback_events_on_submission_event_id"
+
+  create_table "log_events", force: true do |t|
+    t.integer  "user_id",      null: false
+    t.integer  "task_id",      null: false
+    t.integer  "details_id",   null: false
+    t.string   "details_type", null: false
+    t.datetime "created_at"
+  end
+
+  add_index "log_events", ["details_id", "details_type"], name: "index_log_events_on_details_id_and_details_type"
+  add_index "log_events", ["task_id"], name: "index_log_events_on_task_id"
+  add_index "log_events", ["user_id"], name: "index_log_events_on_user_id"
 
   create_table "projects", force: true do |t|
     t.string   "aasm_state"
@@ -23,6 +45,16 @@ ActiveRecord::Schema.define(version: 20131027161520) do
 
   create_table "proposals", force: true do |t|
     t.string "aasm_state"
+  end
+
+  create_table "submission_events", force: true do |t|
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tasks", force: true do |t|
