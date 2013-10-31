@@ -1,8 +1,9 @@
 FourthYearProjectSystem::Application.routes.draw do
   devise_for :users, controllers: { :registrations => "users/registrations" }
 
-  root 'style_test#index'
+  root 'tasks#index'
 
+  resources :tasks
   resources :proposals
   resources :tasks do
     resources :submission_events, only: [:create]

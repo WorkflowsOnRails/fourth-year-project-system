@@ -7,10 +7,12 @@ class ProposalsController < ApplicationController
     @proposal = find_proposal()
     log_events = @proposal.task.log_events.includes(:details).chronological
     submission_events = log_events.where(details_type: SUBMISSION_TYPE)
-    @last_submission_event = submission_events.first.details
+    @last_submission_event = submission_events.first.try(:details)
     @log_events = log_events.paginate(page: params[:page], per_page: 10)
   end
 
+  # TODO: Fix possible responses to submissions on other tasks.
+  # TODO: Fix n queries when rendering feedback events.
   # TODO: Fix poor page layout.
 
   private

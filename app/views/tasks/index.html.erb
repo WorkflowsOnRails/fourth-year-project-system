@@ -1,0 +1,78 @@
+<% content_for :banner do %>
+  Your Tasks
+<% end %>
+
+<p>
+  Spectent hanc erectos quem zonae quoque quisque adspirate deus semina
+  flamina ille habentia montibus tuba tegi austro exemit caelum natura modo
+  mutastis campoque mea vix liquidas quam recepta fabricator valles usu homo
+  cetera carentem unda hunc tellus fontes eurus vesper norant nullus librata
+  terras animalibus satus lucis campos dei glomeravit aeris feras inminet
+  sublime sic, indigestaque recessit caelo uno densior deus orba fulgura
+  coercuit plagae!
+</p>
+
+<h2>Pending Tasks</h2>
+
+<p>
+  Nisi illi, tonitrua terris pressa fronde occiduo mundo animalibus nubes
+  mundo.
+</p>
+
+<table class="table table-hover table-condensed tasks-table">
+  <tbody>
+    <% @pending_tasks.each do |task| %>
+    <tr>
+      <td class="tasks-table-summary"><%= link_to task.summary, task %></td>
+      <td class="tasks-table-timestamp"><%= task.deadline %></td>
+    </tr>
+    <% end %>
+  <thead>
+    <tr>
+      <th class="tasks-table-summary">Task</th>
+      <th class="tasks-table-timestamp">Deadline</th>
+    </tr>
+  </thead>
+  <% if @pending_tasks.empty? %>
+  <tfoot>
+    <tr>
+      <td class="table-empty-message" colspan="2">
+        Congratulations! You do not have any pending tasks.
+      </td>
+    </tr>
+  </tfoot>
+  <% end %>
+</table>
+
+
+<h2>Completed Tasks</h2>
+
+<p>
+  Nisi illi, tonitrua terris pressa fronde occiduo mundo animalibus nubes
+  mundo.
+</p>
+
+<table class="table table-hover table-condensed tasks-table">
+  <tbody>
+    <% @completed_tasks.each do |task| %>
+    <tr>
+      <td class="tasks-table-summary"><%= link_to task.summary, task %></td>
+      <td class="tasks-table-timestamp"><%= task.completed_at %></td>
+    </tr>
+    <% end %>
+  <thead>
+    <tr>
+      <th class="tasks-table-summary">Task</th>
+      <th class="tasks-table-timestamp">Completed</th>
+    </tr>
+  </thead>
+  <% if @completed_tasks.empty? %>
+  <tfoot>
+    <tr>
+      <td class="table-empty-message" colspan="2">
+        You have not completed any tasks yet.
+      </td>
+    </tr>
+  </tfoot>
+  <% end %>
+</table>

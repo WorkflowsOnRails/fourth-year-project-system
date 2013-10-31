@@ -20,24 +20,10 @@
       </div>
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
-          <% if false %>
-            <li class="<%= nav_class_for_controller('work_logs') %>">
-              <%= link_to 'Create an Issue', new_issue_path %>
-            </li>
-            <li class="<%= nav_class_for_controller('clients') %>">
-              <%= link_to 'View Open Issues', issues_path %>
-            </li>
-          <% elsif false %>
-            <li class="<%= nav_class_for_controller('work_logs') %>">
-              <%= link_to 'View Unscheduled Issues', list_unscheduled_issues_path %>
-            </li>
-          <% elsif false %>
-            <li class="<%= nav_class_for_controller('work_logs') %>">
-              <%= link_to 'View My Issues', list_assigned_issues_path %>
-            </li>
-            <li class="<%= nav_class_for_controller('clients') %>">
-              <%= link_to 'View Pending Issues', list_pending_issues_path %>
-            </li>
+          <% if user_signed_in? %>
+          <li class="<%= nav_class_for_controller('tasks') %>">
+            <%= link_to 'Your Tasks', tasks_path %>
+          </li>
           <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
