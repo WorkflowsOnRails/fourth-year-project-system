@@ -1,5 +1,5 @@
 <div class="task-actions">
-  <%= form_for [@proposal.task, FeedbackEvent.new],
+  <%= form_for [taskable.task, FeedbackEvent.new],
       html: {role: 'form'} do |f| %>
     <%= f.hidden_field :submission_event_id,
         value: @last_submission_event.id %>

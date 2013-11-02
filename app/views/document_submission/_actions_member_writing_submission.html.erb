@@ -1,5 +1,5 @@
 <div class="task-actions">
-  <%= form_for [@proposal.task, SubmissionEvent.new],
+  <%= form_for [taskable.task, SubmissionEvent.new],
       html: {role: 'form'} do |f| %>
     <div class="form-group">
       <label>New Submission:</label>

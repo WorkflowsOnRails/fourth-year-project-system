@@ -1,9 +1,9 @@
-module ProposalsHelper
-  SUPERVISOR_REVIEWING_PARTIAL = 'actions_supervisor_reviewing.html.erb'
-  MEMBER_WRITING_PARTIAL = 'actions_member_writing_submission.html.erb'
+module DocumentSubmissionHelper
+  SUPERVISOR_REVIEWING_PARTIAL = 'document_submission/actions_supervisor_reviewing'
+  MEMBER_WRITING_PARTIAL = 'document_submission/actions_member_writing_submission'
 
-  def render_document_task_actions
-    state = @proposal.aasm.current_state
+  def render_document_task_actions(taskable)
+    state = taskable.aasm.current_state
     partial = nil
 
     # TODO: It would be nice if this was somehow tied into the authorization
@@ -19,6 +19,8 @@ module ProposalsHelper
       end
     end
 
-    if partial then render partial: partial else '' end
+    if partial
+      render partial: partial, locals: {taskable: taskable}
+    end
   end
 end
