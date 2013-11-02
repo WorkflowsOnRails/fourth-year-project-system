@@ -3,27 +3,8 @@
 #
 # @author Brendan MacDonell
 class Proposal < ActiveRecord::Base
+  include DocumentSubmissionWorkflow
   include Taskable
-  include AASM
-
-  aasm do
-    state :writing_submission, initial: true
-    state :reviewing, enter: :notify_submitted
-    state :accepted, after_enter: [:notify_accepted, :record_submission]
-
-    event :submit do
-      transitions from: [:writing_submission, :reviewing], to: :reviewing
-    end
-
-    event :return do
-      transitions from: :reviewing, to: :writing_submission,
-                  on_transition: :notify_returned
-    end
-
-    event :accept do
-      transitions from: :reviewing, to: :accepted
-    end
-  end
 
   def self.summarize(project: nil, **options)
     "Proposal for #{project.name}"
@@ -31,20 +12,10 @@ class Proposal < ActiveRecord::Base
 
   private
 
-  def notify_submitted
-    # TODO
-    puts "submitted"
-  end
-
-  def notify_returned
-    # TODO
-    puts "returned"
-  end
-
-  def notify_accepted
-    # TODO
-    puts "accepted"
-  end
+  # TODO:
+  # * notify_submitted
+  # * notify_accepted
+  # * notify_returned
 
   def record_submission
     transaction do
