@@ -24,7 +24,9 @@
     <% @pending_tasks.each do |task| %>
     <tr>
       <td class="tasks-table-summary"><%= link_to task.summary, task %></td>
-      <td class="tasks-table-timestamp"><%= task.deadline %></td>
+      <td class="tasks-table-timestamp">
+        <%= render_datetime task.deadline %>
+      </td>
     </tr>
     <% end %>
   <thead>
@@ -57,7 +59,9 @@
     <% @completed_tasks.each do |task| %>
     <tr>
       <td class="tasks-table-summary"><%= link_to task.summary, task %></td>
-      <td class="tasks-table-timestamp"><%= task.completed_at %></td>
+      <td class="tasks-table-timestamp">
+        <%= render_datetime task.completed_at %>
+      </td>
     </tr>
     <% end %>
   <thead>

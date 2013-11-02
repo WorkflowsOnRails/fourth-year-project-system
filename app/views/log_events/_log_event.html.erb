@@ -1,6 +1,6 @@
 <div class="task-posting row">
   <div class="col-md-2">
-    <span><%= log_event.created_at %></span>
+    <span><%= render_datetime log_event.created_at %></span>
   </div>
   <div class="col-md-8">
     <%= render partial: log_event.details, locals: {event: log_event} %>
