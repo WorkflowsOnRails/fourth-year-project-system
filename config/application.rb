@@ -8,6 +8,8 @@ Bundler.require(:default, Rails.env)
 
 module FourthYearProjectSystem
   class Application < Rails::Application
+    config.autoload_paths += %W(#{config.root}/app/services)
+
     config.generators do |g|
       g.orm             :active_record
       g.template_engine :erb

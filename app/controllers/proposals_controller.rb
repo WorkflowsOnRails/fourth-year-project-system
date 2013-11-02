@@ -1,14 +1,11 @@
 class ProposalsController < ApplicationController
   before_action :authenticate_user!
 
-  SUBMISSION_TYPE = SubmissionEvent.name
-
   def show
     @proposal = find_proposal()
-    log_events = @proposal.task.log_events.includes(:details).chronological
-    submission_events = log_events.where(details_type: SUBMISSION_TYPE)
-    @last_submission_event = submission_events.first.try(:details)
-    @log_events = log_events.paginate(page: params[:page], per_page: 10)
+    service = EventsService.new(@proposal)
+    @last_submission_event = service.last_submission_event
+    @log_events = service.events.paginate(page: params[:page], per_page: 10)
   end
 
   # TODO: Fix possible responses to submissions on other tasks.
