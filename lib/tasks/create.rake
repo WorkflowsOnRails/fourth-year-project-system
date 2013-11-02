@@ -1,6 +1,6 @@
 namespace :create do
 
-  task :coordinator do
+  task :coordinator => :environment do
     email = ENV['email'].dup
     name = ENV['name'].dup
 
