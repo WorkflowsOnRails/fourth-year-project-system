@@ -43,6 +43,8 @@ group :development do
   gem 'binding_of_caller'
 end
 
+gem 'annotate', '>=2.5.0', group: :development
+
 group :development do
   gem 'capistrano'
   gem 'capistrano-bundler'

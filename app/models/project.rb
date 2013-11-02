@@ -47,3 +47,16 @@ class Project < ActiveRecord::Base
     Proposal.create(project: self, deadline: nil)
   end
 end
+
+# == Schema Information
+#
+# Table name: projects
+#
+#  id          :integer          not null, primary key
+#  aasm_state  :string(255)
+#  name        :string(255)
+#  description :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+

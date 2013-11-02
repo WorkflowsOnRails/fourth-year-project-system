@@ -20,3 +20,16 @@ class FeedbackEvent < ActiveRecord::Base
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: feedback_events
+#
+#  id                  :integer          not null, primary key
+#  submission_event_id :integer          not null
+#  accepted            :boolean          not null
+#  comment             :text
+#  created_at          :datetime
+#  updated_at          :datetime
+#
+

@@ -39,6 +39,8 @@ GEM
     anjlab-bootstrap-rails (3.0.0.3)
       railties (>= 3.0)
       sass (>= 3.2)
+    annotate (2.5.0)
+      rake
     arel (4.0.0)
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
@@ -205,6 +207,7 @@ PLATFORMS
 DEPENDENCIES
   aasm (~> 3.0.0)
   anjlab-bootstrap-rails (>= 3.0.0.0)
+  annotate (>= 2.5.0)
   better_errors
   binding_of_caller
   capistrano

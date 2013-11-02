@@ -54,3 +54,12 @@ class Proposal < ActiveRecord::Base
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: proposals
+#
+#  id         :integer          not null, primary key
+#  aasm_state :string(255)
+#
+

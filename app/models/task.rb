@@ -16,3 +16,17 @@ class Task < ActiveRecord::Base
   scope :pending, -> { where(completed_at: nil) }
   scope :completed, -> { where('completed_at is not null') }
 end
+
+# == Schema Information
+#
+# Table name: tasks
+#
+#  id            :integer          not null, primary key
+#  project_id    :integer
+#  taskable_type :string(255)
+#  taskable_id   :integer
+#  summary       :string(255)
+#  deadline      :datetime
+#  completed_at  :datetime
+#
+
