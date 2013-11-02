@@ -63,6 +63,7 @@ class User < ActiveRecord::Base
   def join_project(a_project)
     if is_group_member?
       self.project = a_project
+      save!
     elsif is_supervisor?
       projects << a_project
     end
