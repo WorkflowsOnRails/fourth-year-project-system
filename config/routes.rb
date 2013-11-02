@@ -3,8 +3,9 @@ FourthYearProjectSystem::Application.routes.draw do
 
   root 'tasks#index'
 
-  resources :tasks
   resources :proposals
+  resources :progress_reports
+
   resources :tasks do
     resources :submission_events, only: [:create]
     resources :feedback_events, only: [:create]

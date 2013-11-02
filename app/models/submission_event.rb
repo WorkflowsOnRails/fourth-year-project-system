@@ -13,6 +13,7 @@ class SubmissionEvent < ActiveRecord::Base
       task = options.delete(:task)
       user = options.delete(:user)
       details = super(options)
+      # TODO: Validation if details are rejected
       LogEvent.create(
         user: user,
         task: task,

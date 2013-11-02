@@ -14,8 +14,8 @@ class Project < ActiveRecord::Base
 
   state_machine do
     state :suggested, initial: true
-    state :writing_proposal, after_enter: :create_proposal_task
-    state :writing_progress_report
+    state :writing_proposal, after_enter: :create_proposal
+    state :writing_progress_report, after_enter: :create_progress_report
     state :preparing_oral_presentation
     state :pending_completion
     state :completed
@@ -42,9 +42,14 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def create_proposal_task
+  def create_proposal
     # TODO: Handle fetching deadlines from a configuration object
     Proposal.create(project: self, deadline: nil)
+  end
+
+  def create_progress_report
+    # TODO: Handle fetching deadlines from a configuration object
+    ProgressReport.create(project: self, deadline: nil)
   end
 end
 

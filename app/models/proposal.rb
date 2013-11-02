@@ -17,6 +17,7 @@ class Proposal < ActiveRecord::Base
   # * notify_accepted
   # * notify_returned
 
+  # TODO: Will there be any use in factoring this out?
   def record_submission
     transaction do
       task.update_attributes(completed_at: DateTime.now)
