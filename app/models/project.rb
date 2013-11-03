@@ -51,6 +51,13 @@ class Project < ActiveRecord::Base
     # TODO: Handle fetching deadlines from a configuration object
     ProgressReport.create(project: self, deadline: nil)
   end
+
+  # TODO: Make this available as an AASM helper
+  def signal_or_raise!(name, *args)
+    saved = aasm_fire_event(name, {:persist => true}, *args)
+    raise RuntimeError, "event transition failed!" unless saved
+    nil
+  end
 end
 
 # == Schema Information

@@ -21,8 +21,7 @@ class ProgressReport < ActiveRecord::Base
   def record_submission
     transaction do
       task.update_attributes(completed_at: DateTime.now)
-      project_saved = project.accept_progress_report!(nil, self)
-      raise RuntimeError, "could not accept progress" unless project_saved
+      project.signal_or_raise!(:accept_progress_report, nil, self)
     end
   end
 end
