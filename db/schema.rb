@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131102201802) do
+ActiveRecord::Schema.define(version: 20131103004148) do
 
   create_table "feedback_events", force: true do |t|
     t.integer  "submission_event_id", null: false
@@ -22,6 +22,10 @@ ActiveRecord::Schema.define(version: 20131102201802) do
   end
 
   add_index "feedback_events", ["submission_event_id"], name: "index_feedback_events_on_submission_event_id"
+
+  create_table "final_reports", force: true do |t|
+    t.string "aasm_state"
+  end
 
   create_table "log_events", force: true do |t|
     t.integer  "user_id",      null: false

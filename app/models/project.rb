@@ -17,7 +17,7 @@ class Project < ActiveRecord::Base
     state :writing_proposal, after_enter: :create_proposal
     state :writing_progress_report, after_enter: :create_progress_report
     state :preparing_oral_presentation
-    state :pending_completion
+    state :pending_completion, after_enter: :create_final_report
     state :completed
 
     event :select_project do
@@ -50,6 +50,11 @@ class Project < ActiveRecord::Base
   def create_progress_report
     # TODO: Handle fetching deadlines from a configuration object
     ProgressReport.create(project: self, deadline: nil)
+  end
+
+  def create_final_report
+    # TODO: Handle fetching deadlines from a configuration object
+    FinalReport.create(project: self, deadline: nil)
   end
 
   # TODO: Make this available as an AASM helper

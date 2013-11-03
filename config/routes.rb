@@ -5,6 +5,7 @@ FourthYearProjectSystem::Application.routes.draw do
 
   resources :proposals
   resources :progress_reports
+  resources :final_reports
 
   resources :tasks do
     resources :submission_events, only: [:create]

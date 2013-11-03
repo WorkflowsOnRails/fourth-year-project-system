@@ -1,0 +1,14 @@
+<div>
+  <label>Deadline:</label>
+  <%= final_report.task.deadline %>
+</div>
+<div>
+  <label>Current Submission:</label>
+  <% if @last_submission_event.present? %>
+    <a href="<%= @last_submission_event.attachment.url %>">
+      <%= @last_submission_event.attachment.original_filename %>
+    </a>
+  <% else %>
+    None yet
+  <% end %>
+</div>
