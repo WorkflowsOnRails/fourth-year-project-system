@@ -25,3 +25,12 @@ class ProgressReport < ActiveRecord::Base
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: progress_reports
+#
+#  id         :integer          not null, primary key
+#  aasm_state :string(255)
+#
+
