@@ -61,8 +61,8 @@
 
     <div class="flashes">
       <div class="no-margin-collapse">&nbsp;</div>
-      <% flash.each do |name, message| %>
-        <div class="alert alert-<%= name %>">
+      <% flash.each do |level, message| %>
+        <div class="alert <%= flash_class level %>">
           <%= message %>
         </div>
       <% end %>
