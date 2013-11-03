@@ -27,7 +27,7 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'unicorn'
+gem 'puma'
 gem 'foreman'
 
 group :development do
