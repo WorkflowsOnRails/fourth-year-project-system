@@ -13,6 +13,10 @@ FourthYearProjectSystem::Application.routes.draw do
     resources :feedback_events, only: [:create]
   end
 
+  #custom controller to create supervisors as a coordinator
+  get 'supervisor/new', to: 'supervisors#new', as: 'new_supervisor'
+  post 'supervisor', to: 'supervisors#create'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -27,6 +27,13 @@
           <li class="<%= nav_class_for_controller('projects') %>">
             <%= link_to 'Projects', projects_path %>
           </li>
+
+          <% if current_user.is_coordinator? %>
+            <li class="<%= nav_class_for_controller('supervisors') %>">
+              <%= link_to 'Create New Supervisor', new_supervisor_path %>
+            </li>
+          <% end %>
+
           <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
