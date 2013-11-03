@@ -1,14 +1,17 @@
 class SupervisorsController < ApplicationController
 
   def new
-    @supervisor = User.new
+    if current_user.is_coordinator?
+      @supervisor = User.new
+    end
   end
 
   def create
-    puts params
-    @user = User.create(user_params)
-    @user.role = User::SUPERVISOR_ROLE
-    @user.save
+    if current_user.is_coordinator?
+      @user = User.create(user_params)
+      @user.role = User::SUPERVISOR_ROLE
+      @user.save
+    end
 
     #TODO: Not sure how to set up some type of flash message to notify created
     redirect_to action: :new
