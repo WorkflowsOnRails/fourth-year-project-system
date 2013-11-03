@@ -5,7 +5,7 @@ set :keep_releases, 3
 set :application, application
 set :repo_url, "git@github.com:WorkflowsOnRails/#{application}.git"
 set :scm, :git
-set :branch, 'deployment'
+set :branch, 'master'
 
 set :deploy_to, "/srv/#{application}"
 
