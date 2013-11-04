@@ -3,29 +3,23 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @projects = Project.all
+    @projects = Project.all.includes(:supervisors)
   end
 
   def show
     @project = Project.find(params[:id])
+    authorize @project
   end
 
   def new
-    if !(current_user.is_coordinator? || current_user.is_supervisor?)
-      render status: :forbidden, :text => "You are not allowed to create a project"
-      return 
-    end
-
     @project = Project.new
+    authorize @project
   end
 
   def create
-    if !(current_user.is_coordinator? || current_user.is_supervisor?)
-      render status: :forbidden, :text => "You are not allowed to create a project"
-      return 
-    end
-
     @project = Project.new(project_params)
+    authorize @project
+
     if @project.save
       redirect_to @project
     else
@@ -35,12 +29,10 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    if !(current_user.is_coordinator? || current_user.is_supervisor?)
-      render status: :forbidden, :text => "You are not allowed to delete a project"
-      return 
-    end
+    @project = Project.find(params[:id])
+    authorize @project
 
-    Project.find(params[:id]).destroy
+    @project.destroy
 
     flash[:notice] = "Project deleted successfully"
     redirect_to action: :index
