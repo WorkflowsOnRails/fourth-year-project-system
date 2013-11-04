@@ -1,0 +1,18 @@
+<% content_for :banner do %>
+  Supervisors
+<% end %>
+
+<%= link_to 'Create Supervisor Account', new_supervisor_path, :class => 'btn btn-large btn-primary' %>
+
+<table class="table table-hover table-condensed supervisors-table">
+  <% @supervisors.each do |supervisor| %>
+    <tr>
+      <td class="supervisors-table-name"><%= link_to supervisor.full_name, supervisor_path(id: supervisor.id) %></td>
+      <td class="supervisors-table-email"><%= supervisor.email %></td>
+      <td class="supervisors-table-delete">
+        <%= button_to "Delete", {controller: :supervisors,action: :destroy,id: supervisor.id},
+                       method: :delete, :class => 'btn btn-primary' %></td>
+    </tr>
+  <% end %>
+</table>
+
