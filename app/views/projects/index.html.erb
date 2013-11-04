@@ -3,7 +3,7 @@
 <% end %>
 
 <% if current_user.is_coordinator? %>
-  <%= link_to 'Create Project', new_project_path, :class => 'btn btn-large' %>
+  <%= link_to 'Create Project', new_project_path, :class => 'btn btn-large btn-primary' %>
 <% end %>
 
 <table class="table table-hover table-condensed projects-table">
@@ -12,7 +12,8 @@
       <td class="projects-table-name"><%= link_to project.name, project_path(id: project.id) %></td>
       <% if current_user.is_coordinator? %>
         <td class="projects-table-delete">
-          <%= button_to "Delete", {controller: :projects, action: :destroy, id: project.id}, method: :delete, :class => 'btn btn-large' %>
+          <%= button_to "Delete", {controller: :projects, action: :destroy, id: project.id},
+                        method: :delete, :class => 'btn btn-large btn-primary' %>
         </td>
       <% end %>
     </tr>
