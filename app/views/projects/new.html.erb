@@ -1,5 +1,5 @@
 <% content_for :banner do %>
-  Projects
+  Create Project
 <% end %>
 
 <%= simple_form_for @project do |f| %>
@@ -9,8 +9,9 @@
     <%= f.input :description %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Submit" %>
-  </div>
+  <%= bootstrap_form_buttons do %>
+    <%= f.button :submit, "Create", class: 'btn btn-success'%>
+    <%= link_to "Cancel", :back, class: 'btn btn-default' %>
+  <% end %>
 
 <% end %>

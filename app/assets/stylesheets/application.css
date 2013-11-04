@@ -60,3 +60,7 @@ td.empty-table-message {
 .comment-commenter {
     font-style: italic;
 }
+
+.table-actions {
+    text-align: right;
+}

@@ -1,18 +1,31 @@
 <% content_for :banner do %>
   Supervisors
+
+  <%= link_to 'Create Supervisor Account', new_supervisor_path,
+      class: 'btn btn-primary pull-right' %>
 <% end %>
 
-<%= link_to 'Create Supervisor Account', new_supervisor_path, :class => 'btn btn-large btn-primary' %>
-
 <table class="table table-hover table-condensed supervisors-table">
-  <% @supervisors.each do |supervisor| %>
-    <tr>
-      <td class="supervisors-table-name"><%= link_to supervisor.full_name, supervisor_path(id: supervisor.id) %></td>
-      <td class="supervisors-table-email"><%= supervisor.email %></td>
-      <td class="supervisors-table-delete">
-        <%= button_to "Delete", {controller: :supervisors,action: :destroy,id: supervisor.id},
-                       method: :delete, :class => 'btn btn-primary' %></td>
-    </tr>
-  <% end %>
+  <tbody>
+    <% @supervisors.each do |supervisor| %>
+      <tr>
+        <td class="supervisors-table-name">
+          <%= link_to supervisor.full_name, supervisor_path(id: supervisor.id) %>
+        </td>
+        <td class="supervisors-table-email"><%= supervisor.email %></td>
+        <td class="supervisors-table-actions table-actions">
+          <%= button_to "Delete",
+              {controller: :supervisors, action: :destroy, id: supervisor.id},
+              method: :delete, class: 'btn btn-xs btn-warning',
+              data: { confirm: 'Are you sure you want to delete this account?' }
+              %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+  <thead>
+    <th>Full Name</th>
+    <th>Email Address</th>
+    <th></th>
+  </thead>
 </table>
-
