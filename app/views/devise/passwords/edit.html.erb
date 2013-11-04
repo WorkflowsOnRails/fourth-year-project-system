@@ -11,9 +11,9 @@
     <%= f.input :password_confirmation, :label => "Confirm your new password", :required => true %>
   </div>
 
-  <div class="form-actions">
+  <%= bootstrap_form_buttons do %>
     <%= f.button :submit, "Change my password" %>
-  </div>
+  <% end %>
 <% end %>
 
 <%= render "devise/shared/links" %>

@@ -27,7 +27,14 @@ module ApplicationHelper
   # @author Brendan MacDonell
   def render_datetime(datetime)
     return nil if datetime.nil?
-    # Don't worry about XSS here; ISO8601 formatting is safe
-    "<span data-localtime-format>#{datetime.iso8601}</span>".html_safe
+    content_tag :span, datetime.iso8601, {'data-localtime-format' => true}
+  end
+
+  # Helper for a row of buttons in a form rendered with our default styling
+  # @author Brendan MacDonell
+  def bootstrap_form_buttons(&block)
+    content_tag :div, class: 'form-actions row' do
+      content_tag :div, class: 'col-md-10 col-md-offset-2', &block
+    end
   end
 end

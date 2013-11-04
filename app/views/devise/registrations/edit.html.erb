@@ -27,12 +27,10 @@
         hint: "we need your current password to confirm your changes" %>
   </div>
 
-  <div class="form-actions row">
-    <div class="col-md-10 col-md-offset-2">
-      <%= f.button :submit, "Update", class: 'btn btn-success' %>
-      <%= link_to "Cancel", :back, class: 'btn btn-default' %>
-    </div>
-  </div>
+  <%= bootstrap_form_buttons do %>
+    <%= f.button :submit, "Update", class: 'btn btn-success' %>
+    <%= link_to "Cancel", :back, class: 'btn btn-default' %>
+  <% end %>
 <% end %>
 
 
