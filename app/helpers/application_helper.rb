@@ -25,9 +25,9 @@ module ApplicationHelper
 
   # Render a datetime into a format useable by jquery.localtime
   # @author Brendan MacDonell
-  def render_datetime(dt)
-    return nil if dt.nil?
+  def render_datetime(datetime)
+    return nil if datetime.nil?
     # Don't worry about XSS here; ISO8601 formatting is safe
-    "<span data-localtime-format>#{dt.iso8601}</span>".html_safe
+    "<span data-localtime-format>#{datetime.iso8601}</span>".html_safe
   end
 end
