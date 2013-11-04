@@ -1,32 +1,32 @@
+# @author Alexander Clelland
 class SupervisorsController < ApplicationController
   before_action :authenticate_user!
 
-  def index
-    if !current_user.is_coordinator?
-      render status: :forbidden, :text => "You are not a coordinator!"
-      return
-    end
+  # Problem:  policies are defined on objects, and we want to set
+  #           a policy for managing supervisors, not for managing
+  #           users (anyone can manage themselves.)
+  # Solution: define a policy for the controller itself, and call
+  #           `authorize self`.
+  def self.policy_class
+    SupervisorPolicy
+  end
 
-    @supervisors = User.find(:all, :conditions => {:role => [User::SUPERVISOR_ROLE]})
+  def index
+    authorize self
+    @supervisors = User.where(role: User::SUPERVISOR_ROLE)
   end
 
   def new
-    if !current_user.is_coordinator?
-      render status: :forbidden, :text => "You are not a coordinator!"
-      return
-    end
-
+    authorize self
     @supervisor = User.new
   end
 
   def create
-    if !current_user.is_coordinator?
-      render status: :forbidden, :text => "You are not a coordinator!"
-      return 
-    end
+    authorize self
 
-    @supervisor = User.create(user_params)
+    @supervisor = User.new(user_params)
     @supervisor.role = User::SUPERVISOR_ROLE
+
     if @supervisor.save
       flash[:notice] = "Supervisor created successfully"
       redirect_to action: :index #go back to the list of supervisors
@@ -37,10 +37,7 @@ class SupervisorsController < ApplicationController
   end
 
   def destroy
-    if !current_user.is_coordinator?
-      render status: :forbidden, :text => "You are not a coordinator!"
-      return 
-    end
+    authorize self
 
     User.find(params[:id]).destroy
 
@@ -49,7 +46,8 @@ class SupervisorsController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:full_name, :email, :password, :password_confirmation)
+    params.require(:user)
+          .permit(:full_name, :email, :password, :password_confirmation)
   end
 
 end
