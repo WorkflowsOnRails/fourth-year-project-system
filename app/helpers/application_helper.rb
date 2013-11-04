@@ -27,7 +27,7 @@ module ApplicationHelper
   # @author Brendan MacDonell
   def render_datetime(datetime)
     return nil if datetime.nil?
-    content_tag :span, datetime.iso8601, {'data-localtime-format' => true}
+    content_tag :span, datetime.iso8601, {'data-localtime-format' => ''}
   end
 
   # Helper for a row of buttons in a form rendered with our default styling
