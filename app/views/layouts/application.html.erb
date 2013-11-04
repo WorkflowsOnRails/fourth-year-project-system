@@ -30,7 +30,7 @@
 
           <% if current_user.is_coordinator? %>
             <li class="<%= nav_class_for_controller('supervisors') %>">
-              <%= link_to 'Create New Supervisor', new_supervisor_path %>
+              <%= link_to 'Supervisors', supervisors_path %>
             </li>
           <% end %>
 
