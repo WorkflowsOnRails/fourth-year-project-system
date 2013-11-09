@@ -3,7 +3,10 @@ FourthYearProjectSystem::Application.routes.draw do
 
   root 'tasks#index'
 
-  resources :projects
+  resources :projects do
+    get 'join'
+    get 'leave'
+  end
 
   resources :proposals
   resources :progress_reports

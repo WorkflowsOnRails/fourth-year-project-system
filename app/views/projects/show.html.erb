@@ -1,5 +1,26 @@
 <% content_for :banner do %>
   Projects
+
+  <% if (current_user.is_supervisor? && !@project.supervisors.include?(current_user)) ||
+    (current_user.is_group_member? && !@project.group_members.include?(current_user))%>
+    <%= link_to 'Join', project_join_path(@project),
+        class: 'btn btn-primary pull-right' %>
+  <% else %>
+    <%= link_to 'Leave', project_leave_path(@project),
+        class: 'btn btn-primary pull-right' %>
+  <% end %>
 <% end %>
 
 <p>Project Name: <%= @project.name %></p>
+
+<p>Supervisor(s):   
+  <% @supervisors.each do |supervisor| %>
+    <%= supervisor.full_name %>
+  <% end %>
+</p>
+
+<p>Group Members: 
+  <% @group_members.each do |member| %>
+    <%= member.full_name %>
+  <% end %>
+</p>

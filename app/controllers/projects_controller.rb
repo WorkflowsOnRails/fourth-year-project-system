@@ -9,6 +9,9 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     authorize @project
+
+    @supervisors = @project.supervisors
+    @group_members = @project.group_members
   end
 
   def new
@@ -36,6 +39,20 @@ class ProjectsController < ApplicationController
 
     flash[:notice] = "Project deleted successfully"
     redirect_to action: :index
+  end
+
+  def join
+    @project = Project.find(params[:project_id])
+    authorize @project
+    current_user.join_project(@project)
+    redirect_to @project
+  end
+
+  def leave
+    @project = Project.find(params[:project_id])
+    authorize @project
+    current_user.leave_project(@project)
+    redirect_to @project
   end
 
   def project_params
