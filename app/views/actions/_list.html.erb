@@ -1,0 +1,20 @@
+<div class="actions">
+  <ul class="nav nav-pills">
+    <% actions.each_with_index do |action, index| %>
+    <li class="<%= if index == 0 then 'active' end %>">
+      <a href="#<%= action.id %>" data-toggle="pill">
+        <%= action.title %>
+      </a>
+    </li>
+    <% end %>
+  </ul>
+
+  <div class="tab-content">
+    <% actions.each_with_index do |action, index| %>
+    <div class="tab-pane <%= if index == 0 then 'active' end %>"
+         id="<%= action.id %>">
+      <%= render partial: action.partial, locals: {taskable: taskable} %>
+    </div>
+    <% end %>
+  </div>
+</div>
