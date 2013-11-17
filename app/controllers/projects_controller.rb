@@ -28,7 +28,7 @@ class ProjectsController < ApplicationController
 
     #find and add the specified supervisor to the project
     supervisor = User.find(params[:project][:supervisors])
-    
+    # TODO: Validate that the user is a supervisor
     supervisor.join_project(@project)
 
     if @project.save

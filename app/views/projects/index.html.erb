@@ -14,13 +14,19 @@
         <td class="projects-table-name">
           <%= link_to project.name, project_path(id: project.id) %>
         </td>
-        <td class="projects-table-actions table-actions">
-          <% if policy(project).destroy? %>
-            <%= button_to "Delete",
-                {controller: :projects, action: :destroy, id: project.id},
-                method: :delete, class: 'btn btn-xs btn-warning',
-                data: { confirm: 'Are you sure you want to delete this project?' }
-                %>
+        <td class="projects-table-supervisor">
+          <% project.supervisors.each do |supervisor| %>
+            <%= supervisor.full_name %>
+          <% end %>
+        </td>
+        <td class="projects-table-members">
+          <% project.group_members.each do |member| %>
+            <%= member.full_name %>
+          <% end %>
+        </td>
+        <td class="projects-table-programmes">
+          <% project.programmes.each do |programme| %>
+            <%= programme.programme %>
           <% end %>
         </td>
       </tr>
@@ -28,6 +34,9 @@
   </tbody>
   <thead>
     <th>Project Name</th>
+    <th>Supervisors</th>
+    <th>Group Members</th>
+    <th>Programmes</th>
     <th></th>
   </thead>
 </table>
