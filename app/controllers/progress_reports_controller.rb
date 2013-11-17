@@ -1,4 +1,6 @@
 class ProgressReportsController < ApplicationController
+  include StateActionRenderable
+
   before_action :authenticate_user!
 
   def show
@@ -6,6 +8,10 @@ class ProgressReportsController < ApplicationController
     service = EventsService.new(@progress_report)
     @last_submission_event = service.last_submission_event
     @log_events = service.events.paginate(page: params[:page], per_page: 10)
+  end
+
+  def action_view_prefix(event)
+    'document_submission'
   end
 
   # TODO: Fix possible responses to submissions on other tasks.

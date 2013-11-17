@@ -5,7 +5,8 @@
     <%= f.file_field :attachment, class: 'inline' %>
   </div>
   <div class="form-group">
-    <%= f.text_area :comment, class: 'form-control' %>
+    <%= f.text_area :comment, class: 'form-control',
+        placeholder: 'Add comments to submission' %>
   </div>
   <div class="form-group text-right">
     <%= f.submit "Submit", class: 'btn btn-success' %>

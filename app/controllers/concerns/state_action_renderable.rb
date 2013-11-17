@@ -54,10 +54,8 @@ module StateActionRenderable
     end
     actions.sort_by! {|action| action.title}
 
-    unless actions.empty?
-      rendered = render_to_string partial: 'actions/list',
-                   locals: {actions: actions, taskable: taskable}
-      rendered.html_safe
-    end
+    rendered = render_to_string partial: 'actions/list',
+               locals: {actions: actions, taskable: taskable}
+    rendered.html_safe
   end
 end
