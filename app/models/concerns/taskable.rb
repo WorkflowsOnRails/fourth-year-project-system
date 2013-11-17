@@ -14,9 +14,10 @@ module Taskable
 
   included do
     has_one :task, as: :taskable
+    has_one :project, through: :task
 
     extend Forwardable
-    def_delegators :task, :project, :deadline, :completed_at
+    def_delegators :task, :deadline, :completed_at
   end
 
   module ClassMethods
