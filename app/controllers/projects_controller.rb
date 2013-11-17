@@ -17,11 +17,19 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
     authorize @project
+
+    @supervisors = User.where(role: User::SUPERVISOR_ROLE)
+
   end
 
   def create
     @project = Project.new(project_params)
     authorize @project
+
+    #find and add the specified supervisor to the project
+    supervisor = User.find(params[:project][:supervisors])
+    
+    supervisor.join_project(@project)
 
     if @project.save
   
