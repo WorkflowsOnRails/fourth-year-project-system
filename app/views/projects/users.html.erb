@@ -1,0 +1,30 @@
+<% content_for :banner do %>
+  Projects
+<% end %>
+
+This should show a list of all users currently not assigned to the project and a button to add them
+
+<table class="table table-hover table-condensed projects-user-management-table">
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td class="projects-table-user-management-name">
+          <%= user.full_name %>
+        </td>
+        <td class="projects-table-user-management-email">
+          <%= user.email %>
+        </td>
+        <% if policy(@project).add? %>
+          <td class="projects-table-user-management-add">
+            Add Button
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+  <thead>
+    <th>Name</th>
+    <th>Email</th>
+    <th></th>
+  </thead>
+</table>
