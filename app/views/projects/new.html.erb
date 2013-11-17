@@ -7,6 +7,7 @@
   <div class="form-inputs">
     <%= f.input :name, required: true %>
     <%= f.input :description %>
+    <%= f.input :programmes, collection: Programme::PROGRAMMES, required: true, as: :check_boxes %>
   </div>
 
   <%= bootstrap_form_buttons do %>

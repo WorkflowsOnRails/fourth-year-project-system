@@ -9,6 +9,7 @@ class Project < ActiveRecord::Base
 
   has_many :tasks
   has_many :group_members, class_name: 'User'
+  has_many :programmes
   has_and_belongs_to_many :supervisors, class_name: 'User'
 
   validates :name, presence: true

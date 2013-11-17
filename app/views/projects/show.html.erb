@@ -14,13 +14,19 @@
 <p>Project Name: <%= @project.name %></p>
 
 <p>Supervisor(s):   
-  <% @supervisors.each do |supervisor| %>
+  <% @project.supervisors.each do |supervisor| %>
     <%= supervisor.full_name %>
   <% end %>
 </p>
 
 <p>Group Members: 
-  <% @group_members.each do |member| %>
+  <% @project.group_members.each do |member| %>
     <%= member.full_name %>
+  <% end %>
+</p>
+
+<p>Programmes: 
+  <% @programmes.each do |programme| %>
+    <%= programme.programme %>
   <% end %>
 </p>

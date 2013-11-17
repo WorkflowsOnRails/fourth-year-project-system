@@ -10,8 +10,8 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     authorize @project
 
-    @supervisors = @project.supervisors
-    @group_members = @project.group_members
+    @programmes = Programme.where(project_id: params[:id])
+
   end
 
   def new
@@ -24,6 +24,13 @@ class ProjectsController < ApplicationController
     authorize @project
 
     if @project.save
+  
+      #create programmes based on params
+      # TODO: Validation to ensure programmes were created properly, not sure if this is how this should be done either
+      params[:project][:programmes].each do |programme| 
+        Programme.create(programme: programme, project_id: @project.id)
+      end
+
       redirect_to @project
     else
       flash[:alert] = "Error(s) when creating project. See below for more information"
@@ -34,6 +41,11 @@ class ProjectsController < ApplicationController
   def destroy
     @project = Project.find(params[:id])
     authorize @project
+
+    #remove programme references
+    Programme.where(project_id: params[:id]).each do |programme|
+      programme.destroy
+    end
 
     @project.destroy
 
