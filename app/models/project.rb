@@ -16,8 +16,7 @@ class Project < ActiveRecord::Base
   validates :description, presence: true
 
   state_machine do
-    state :suggested, initial: true
-    state :writing_proposal, after_enter: :create_proposal
+    state :writing_proposal, initial: true, after_enter: :create_proposal
     state :writing_progress_report, after_enter: :create_progress_report
     state :preparing_oral_presentation
     state :pending_completion, after_enter: :create_final_report
