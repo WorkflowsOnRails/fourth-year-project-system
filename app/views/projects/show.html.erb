@@ -38,7 +38,8 @@ Supervisor:
         </td>
         <% if policy(@project).remove? %>
           <td class="projects-table-supervisor-remove">
-            Remove Button
+            <%= button_to 'Remove', project_user_remove_path(@project.id, supervisor.id),
+                class: 'btn btn-primary pull-right' %>
           </td>
         <% end %>
       </tr>
@@ -65,7 +66,8 @@ Group Members:
         </td>
         <% if policy(@project).remove? %>
           <td class="projects-table-member-remove">
-            Remove Button
+            <%= button_to 'Remove', project_user_remove_path(@project.id, member.id),
+                class: 'btn btn-primary pull-right' %>
           </td>
         <% end %>
       </tr>

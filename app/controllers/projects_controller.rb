@@ -61,28 +61,6 @@ class ProjectsController < ApplicationController
     redirect_to action: :index
   end
 
-  def users
-    @project = Project.find(params[:project_id])
-    authorize @project
-
-    #@users = User.where.not(project_id: @project.id) #not sure why this doesn't work
-    @users= User.all
-  end
-
-  #def join
-  #  @project = Project.find(params[:project_id])
-  #  authorize @project
-  #  current_user.join_project(@project)
-  #  redirect_to @project
-  #end
-
-  #def leave
-  #  @project = Project.find(params[:project_id])
-  #  authorize @project
-  #  current_user.leave_project(@project)
-  #  redirect_to @project
-  #end
-
   def project_params
     params.require(:project).permit(:name, :description)
   end

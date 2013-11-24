@@ -2,7 +2,7 @@
   Projects
 <% end %>
 
-This should show a list of all users currently not assigned to the project and a button to add them
+This should show a list of all Group Members currently not assigned to the project and a button to add them
 
 <table class="table table-hover table-condensed projects-user-management-table">
   <tbody>
@@ -16,7 +16,8 @@ This should show a list of all users currently not assigned to the project and a
         </td>
         <% if policy(@project).add? %>
           <td class="projects-table-user-management-add">
-            Add Button
+            <%= button_to 'Add', project_user_add_path(@project.id, user.id),
+                class: 'btn btn-primary pull-right' %>
           </td>
         <% end %>
       </tr>
