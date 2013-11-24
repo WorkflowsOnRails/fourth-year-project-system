@@ -14,20 +14,16 @@ class ProjectPolicy < ApplicationPolicy
 
   alias_method :destroy?, :update?
 
-  def join?
-    if @user.is_supervisor?
-      !user_supervises_project?
-    elsif @user.is_group_member?
-      !group_member_in_project?
-    end
+  def users?
+    user_supervises_project?
   end
 
-  def leave?
-    if @user.is_supervisor?
-      user_supervises_project?
-    elsif @user.is_group_member?
-      group_member_in_project?
-    end
+  def add?
+    user_supervises_project?
+  end
+
+  def remove?
+    user_supervises_project?
   end
 
   private

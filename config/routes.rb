@@ -4,8 +4,10 @@ FourthYearProjectSystem::Application.routes.draw do
   root 'tasks#index'
 
   resources :projects do
-    get 'join'
-    get 'leave'
+    resources :users, only: [:index] do
+      post 'add'
+      post 'remove'
+    end
   end
 
   resources :proposals do

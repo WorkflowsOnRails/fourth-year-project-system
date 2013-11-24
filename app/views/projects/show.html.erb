@@ -9,34 +9,83 @@
     %>
   <% end %>
 
-  <% if (current_user.is_supervisor? && !@project.supervisors.include?(current_user)) ||
-    (current_user.is_group_member? && !@project.group_members.include?(current_user))%>
-    <%= link_to 'Join', project_join_path(@project),
-        class: 'btn btn-primary pull-right' %>
-  <% else %>
-    <%= link_to 'Leave', project_leave_path(@project),
+  <% if policy(@project).users? %>
+    <%= link_to 'Manage Users', project_users_path(@project),
         class: 'btn btn-primary pull-right' %>
   <% end %>
 <% end %>
 
-<p>Project Name: <%= @project.name %></p>
+<p>Name: <%= @project.name %></p>
 
-<p>Project Description: <%= @project.description %></p>
-
-<p>Supervisor(s):   
-  <% @project.supervisors.each do |supervisor| %>
-    <%= supervisor.full_name %>
-  <% end %>
-</p>
-
-<p>Group Members: 
-  <% @project.group_members.each do |member| %>
-    <%= member.full_name %>
-  <% end %>
-</p>
+<p>Description: <%= @project.description %></p>
 
 <p>Programmes: 
   <% @programmes.each do |programme| %>
-    <%= programme.programme %>
+    <%= programme.programme %>,
   <% end %>
 </p>
+
+<h2>Supervisor</h2>
+<table class="table table-hover table-condensed projects-supervisor-table">
+  <tbody>
+    <% @project.supervisors.each do |supervisor| %>
+      <tr>
+        <td class="projects-table-supervisor-name">
+          <%= supervisor.full_name %>
+        </td>
+        <td class="projects-table-supervisor-email">
+          <%= supervisor.email %>
+        </td>
+        <% if policy(@project).remove? %>
+          <td class="projects-table-supervisor-remove">
+            <%= button_to 'Remove', project_user_remove_path(@project.id, supervisor.id),
+                class: 'btn btn-xs btn-warning',
+                data: { confirm: 'Are you sure you want to Remove ' + supervisor.full_name + ' from the project?' } %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+  <thead>
+    <th>Name</th>
+    <th>Email</th>
+    <th></th>
+  </thead>
+</table>
+
+
+<h2>Group Members</h2>
+<table class="table table-hover table-condensed projects-member-table">
+  <tbody>
+    <% @project.group_members.each do |member| %>
+      <tr>
+        <td class="projects-table-member-name">
+          <%= member.full_name %>
+        </td>
+        <td class="projects-table-member-email">
+          <%= member.email %>
+        </td>
+        <td class="projects-table-member-number">
+          <%= member.student_number %>
+        </td>
+        <td class="projects-table-member-programme">
+          <%= member.programme %>
+        </td>
+        <% if policy(@project).remove? %>
+          <td class="projects-table-member-remove">
+            <%= button_to 'Remove', project_user_remove_path(@project.id, member.id),
+                class: 'btn btn-xs btn-warning',
+                data: { confirm: 'Are you sure you want to Remove ' + member.full_name + ' from the project?' } %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+  <thead>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Student Number</th>
+    <th>Programme</th>
+    <th></th>
+  </thead>
+</table>

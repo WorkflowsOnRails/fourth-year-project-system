@@ -61,20 +61,6 @@ class ProjectsController < ApplicationController
     redirect_to action: :index
   end
 
-  def join
-    @project = Project.find(params[:project_id])
-    authorize @project
-    current_user.join_project(@project)
-    redirect_to @project
-  end
-
-  def leave
-    @project = Project.find(params[:project_id])
-    authorize @project
-    current_user.leave_project(@project)
-    redirect_to @project
-  end
-
   def project_params
     params.require(:project).permit(:name, :description)
   end

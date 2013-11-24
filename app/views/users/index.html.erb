@@ -1,0 +1,71 @@
+<% content_for :banner do %>
+  Projects
+
+  <%= link_to 'Back', project_path(@project),
+      class: 'btn btn-primary pull-right' %>
+
+<% end %>
+
+<h2>Supervisors</h2>
+<table class="table table-hover table-condensed projects-supervisor-management-table">
+  <tbody>
+    <% @supervisors.each do |supervisor| %>
+      <tr>
+        <td class="projects-table-supervisor-management-name">
+          <%= supervisor.full_name %>
+        </td>
+        <td class="projects-table-supervisor-management-email">
+          <%= supervisor.email %>
+        </td>
+        <% if policy(@project).add? %>
+          <td class="projects-table-supervisor-management-add">
+            <%= button_to 'Add', project_user_add_path(@project.id, supervisor.id),
+                class: 'btn btn-xs btn-primary',
+                data: { confirm: 'Are you sure you want to Add ' + supervisor.full_name + ' to the project?' } %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+  <thead>
+    <th>Name</th>
+    <th>Email</th>
+    <th></th>
+  </thead>
+</table>
+
+<h2>Group Members</h2>
+<table class="table table-hover table-condensed projects-member-management-table">
+  <tbody>
+    <% @group_members.each do |member| %>
+      <tr>
+        <td class="projects-table-member-management-name">
+          <%= member.full_name %>
+        </td>
+        <td class="projects-table-user-management-email">
+          <%= member.email %>
+        </td>
+        <td class="projects-table-user-management-number">
+          <%= member.student_number %>
+        </td>
+        <td class="projects-table-user-management-programme">
+          <%= member.programme %>
+        </td>
+        <% if policy(@project).add? %>
+          <td class="projects-table-member-management-add">
+            <%= button_to 'Add', project_user_add_path(@project.id, member.id),
+                class: 'btn btn-xs btn-primary',
+                data: { confirm: 'Are you sure you want to Add ' + member.full_name + ' to the project?' } %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+  <thead>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Student Number</th>
+    <th>Programme</th>
+    <th></th>
+  </thead>
+</table>
