@@ -26,22 +26,6 @@ class ProjectPolicy < ApplicationPolicy
     user_supervises_project?
   end
 
-  #def join?
-  #  if @user.is_supervisor?
-  #    !user_supervises_project?
-  #  elsif @user.is_group_member?
-  #    !group_member_in_project?
-  #  end
-  #end
-
-  #def leave?
-  #  if @user.is_supervisor?
-  #    user_supervises_project?
-  #  elsif @user.is_group_member?
-  #    group_member_in_project?
-  #  end
-  #end
-
   private
 
   def user_supervises_project?

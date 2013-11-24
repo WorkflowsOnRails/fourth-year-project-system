@@ -15,17 +15,17 @@
   <% end %>
 <% end %>
 
-<p>Project Name: <%= @project.name %></p>
+<p>Name: <%= @project.name %></p>
 
-<p>Project Description: <%= @project.description %></p>
+<p>Description: <%= @project.description %></p>
 
 <p>Programmes: 
   <% @programmes.each do |programme| %>
-    <%= programme.programme %>
+    <%= programme.programme %>,
   <% end %>
 </p>
 
-Supervisor:
+<h2>Supervisor</h2>
 <table class="table table-hover table-condensed projects-supervisor-table">
   <tbody>
     <% @project.supervisors.each do |supervisor| %>
@@ -39,7 +39,8 @@ Supervisor:
         <% if policy(@project).remove? %>
           <td class="projects-table-supervisor-remove">
             <%= button_to 'Remove', project_user_remove_path(@project.id, supervisor.id),
-                class: 'btn btn-primary pull-right' %>
+                class: 'btn btn-xs btn-warning',
+                data: { confirm: 'Are you sure you want to Remove ' + supervisor.full_name + ' from the project?' } %>
           </td>
         <% end %>
       </tr>
@@ -53,7 +54,7 @@ Supervisor:
 </table>
 
 
-Group Members:
+<h2>Group Members</h2>
 <table class="table table-hover table-condensed projects-member-table">
   <tbody>
     <% @project.group_members.each do |member| %>
@@ -64,10 +65,17 @@ Group Members:
         <td class="projects-table-member-email">
           <%= member.email %>
         </td>
+        <td class="projects-table-member-number">
+          <%= member.student_number %>
+        </td>
+        <td class="projects-table-member-programme">
+          <%= member.programme %>
+        </td>
         <% if policy(@project).remove? %>
           <td class="projects-table-member-remove">
             <%= button_to 'Remove', project_user_remove_path(@project.id, member.id),
-                class: 'btn btn-primary pull-right' %>
+                class: 'btn btn-xs btn-warning',
+                data: { confirm: 'Are you sure you want to Remove ' + member.full_name + ' from the project?' } %>
           </td>
         <% end %>
       </tr>
@@ -76,6 +84,8 @@ Group Members:
   <thead>
     <th>Name</th>
     <th>Email</th>
+    <th>Student Number</th>
+    <th>Programme</th>
     <th></th>
   </thead>
 </table>
