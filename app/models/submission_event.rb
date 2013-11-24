@@ -1,26 +1,16 @@
-# TODO
+# Log event representing the submission of a document, possibly with
+# an associated comment.
 #
 # @author Brendan MacDonell
 class SubmissionEvent < ActiveRecord::Base
+  include LogEventable
+
   has_attached_file :attachment
-  has_one :log_event, as: :details
 
   validates :attachment, attachment_presence: true
 
-  # TODO: Factor this out
-  def self.create(options = {})
-    SubmissionEvent.transaction do
-      task = options.delete(:task)
-      user = options.delete(:user)
-      details = super(options)
-      # TODO: Validation if details are rejected
-      LogEvent.create(
-        user: user,
-        task: task,
-        details: details,
-      )
-      details
-    end
+  def fire_events!(task)
+    task.taskable.submit!
   end
 end
 

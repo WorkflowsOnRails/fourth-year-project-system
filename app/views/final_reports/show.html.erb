@@ -1,20 +1,18 @@
 <% content_for :banner do %>
-  <%= @final_report.task.summary %>
+  <%= @taskable.task.summary %>
 <% end %>
 
 <div class="row">
   <div class="col-md-7">
     <h2>Instructions</h2>
-    <%= render partial: 'description.html.erb',
-        locals: {final_report: @final_report} %>
+    <%= render partial: 'description.html.erb', locals: {taskable: @taskable} %>
   </div>
   <div class="col-md-5">
     <h2>Task Status</h2>
-    <%= render partial: 'state.html.erb',
-        locals: {final_report: @final_report} %>
+    <%= render partial: 'state.html.erb', locals: {taskable: @taskable} %>
 
     <h2>Actions</h2>
-    <%= render_state_actions @final_report %>
+    <%= render_state_actions @taskable %>
   </div>
 </div>
 

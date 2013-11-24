@@ -23,4 +23,5 @@ class EventsService
     submission_events = events.where(details_type: SUBMISSION_TYPE)
     submission_events.first.try(:details)
   end
+
 end

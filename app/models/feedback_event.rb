@@ -2,21 +2,15 @@
 #
 # @author Brendan MacDonell
 class FeedbackEvent < ActiveRecord::Base
-  belongs_to :submission_event
-  has_one :log_event, as: :details
+  include LogEventable
 
-  # TODO: Factor this out
-  def self.create(options = {})
-    FeedbackEvent.transaction do
-      task = options.delete(:task)
-      user = options.delete(:user)
-      details = super(options)
-      LogEvent.create(
-        user: user,
-        task: task,
-        details: details,
-      )
-      details
+  belongs_to :submission_event
+
+  def fire_events!(task)
+    if accepted
+      task.taskable.accept!
+    else
+      task.taskable.return!
     end
   end
 end

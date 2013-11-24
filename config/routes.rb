@@ -8,9 +8,29 @@ FourthYearProjectSystem::Application.routes.draw do
     get 'leave'
   end
 
-  resources :proposals
-  resources :progress_reports
-  resources :final_reports
+  resources :proposals do
+    member do
+      post 'submit'
+      post 'accept'
+      post 'return'
+    end
+  end
+
+  resources :progress_reports do
+    member do
+      post 'submit'
+      post 'accept'
+      post 'return'
+    end
+  end
+
+  resources :final_reports do
+    member do
+      post 'submit'
+      post 'accept'
+      post 'return'
+    end
+  end
 
   resources :tasks do
     resources :submission_events, only: [:create]

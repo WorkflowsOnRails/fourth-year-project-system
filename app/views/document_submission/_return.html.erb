@@ -1,4 +1,5 @@
 <%= form_for [taskable.task, FeedbackEvent.new],
+    url: url_for(controller: controller_name, action: :return, only_path: true),
     html: {role: 'form'} do |f| %>
   <%= f.hidden_field :submission_event_id,
       value: @last_submission_event.id %>
