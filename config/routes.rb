@@ -1,3 +1,13 @@
+def document_submission_resources(name)
+  resources name do
+    member do
+      post 'submit'
+      post 'accept'
+      post 'return'
+    end
+  end
+end
+
 FourthYearProjectSystem::Application.routes.draw do
   devise_for :users, controllers: { :registrations => "users/registrations" }
 
@@ -10,27 +20,14 @@ FourthYearProjectSystem::Application.routes.draw do
     end
   end
 
-  resources :proposals do
-    member do
-      post 'submit'
-      post 'accept'
-      post 'return'
-    end
-  end
+  document_submission_resources :proposals
+  document_submission_resources :progress_reports
+  document_submission_resources :final_reports
 
-  resources :progress_reports do
+  resources :oral_presentation_forms do
     member do
       post 'submit'
       post 'accept'
-      post 'return'
-    end
-  end
-
-  resources :final_reports do
-    member do
-      post 'submit'
-      post 'accept'
-      post 'return'
     end
   end
 

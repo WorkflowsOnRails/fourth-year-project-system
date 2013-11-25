@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require bootstrap_and_overrides
+ *= require available
  *= require_self
  *= require_tree .
  */
@@ -19,7 +20,12 @@
 
 .spacer {
     display: block;
-    margin-top: 60px;
+    margin-top: 55px;
+}
+
+.half-spacer {
+    display: block;
+    margin-top: 25px;
 }
 
 h1 {

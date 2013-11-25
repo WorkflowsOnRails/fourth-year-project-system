@@ -44,6 +44,18 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def has_group_member?(user)
+    user.is_group_member? && group_members.include?(user)
+  end
+
+  def has_supervisor?(user)
+    user.is_supervisor? && supervisors.include?(user)
+  end
+
+  def has_participant?(user)
+    has_group_member?(user) || has_supervisor?(user)
+  end
+
   def create_proposal
     # TODO: Handle fetching deadlines from a configuration object
     Proposal.create(project: self, deadline: nil)
