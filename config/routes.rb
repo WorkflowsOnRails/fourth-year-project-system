@@ -31,10 +31,7 @@ FourthYearProjectSystem::Application.routes.draw do
     end
   end
 
-  resources :tasks do
-    resources :submission_events, only: [:create]
-    resources :feedback_events, only: [:create]
-  end
+  resources :tasks
 
   resources :supervisors
 
