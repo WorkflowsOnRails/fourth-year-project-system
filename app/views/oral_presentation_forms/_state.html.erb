@@ -1,6 +1,6 @@
 <div>
   <label>Deadline:</label>
-  <%= taskable.task.deadline %>
+  <%= render_datetime taskable.task.deadline.timestamp %>
 </div>
 <div>
   <label>Participants who have not accepted the form:</label>

@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131124162300) do
+ActiveRecord::Schema.define(version: 20131127160936) do
+
+  create_table "deadlines", id: false, force: true do |t|
+    t.string   "code",      null: false
+    t.datetime "timestamp", null: false
+  end
+
+  add_index "deadlines", ["code"], name: "index_deadlines_on_code", unique: true
 
   create_table "feedback_events", force: true do |t|
     t.integer  "submission_event_id", null: false
@@ -92,8 +99,8 @@ ActiveRecord::Schema.define(version: 20131124162300) do
     t.string   "taskable_type"
     t.integer  "taskable_id"
     t.string   "summary"
-    t.datetime "deadline"
     t.datetime "completed_at"
+    t.string   "deadline_id"
   end
 
   add_index "tasks", ["project_id"], name: "index_tasks_on_project_id"

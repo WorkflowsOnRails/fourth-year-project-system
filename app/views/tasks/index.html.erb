@@ -25,7 +25,7 @@
     <tr>
       <td class="tasks-table-summary"><%= link_to task.summary, task %></td>
       <td class="tasks-table-timestamp">
-        <%= render_datetime task.deadline %>
+        <%= render_datetime task.deadline.timestamp %>
       </td>
     </tr>
     <% end %>

@@ -7,14 +7,24 @@
 # @author Brendan MacDonell
 class Task < ActiveRecord::Base
   belongs_to :project
+  belongs_to :deadline
   belongs_to :taskable, polymorphic: true
   has_many :log_events
 
+  validates :deadline, presence: true
   validates :taskable, presence: true
   validates :summary, presence: true
 
+  default_scope { includes(:deadline) }
+
   scope :pending, -> { where(completed_at: nil) }
   scope :completed, -> { where('completed_at is not null') }
+  scope :overdue, -> {
+    joins(:deadline).where('deadlines.timestamp < ?', DateTime.now)
+  }
+  scope :late, -> {
+    joins(:deadline).where('completed_at > deadlines.timestamp')
+  }
 end
 
 # == Schema Information

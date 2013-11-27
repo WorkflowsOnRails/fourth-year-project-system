@@ -61,22 +61,19 @@ class Project < ActiveRecord::Base
   end
 
   def create_proposal
-    # TODO: Handle fetching deadlines from a configuration object
-    Proposal.create(project: self, deadline: nil)
+    create_taskable(Proposal)
   end
 
   def create_progress_report
-    # TODO: Handle fetching deadlines from a configuration object
-    ProgressReport.create(project: self, deadline: nil)
+    create_taskable(ProgressReport)
   end
 
   def create_oral_presentation_form
-    OralPresentationForm.create(project: self, deadline: nil)
+    create_taskable(OralPresentationForm)
   end
 
   def create_final_report
-    # TODO: Handle fetching deadlines from a configuration object
-    FinalReport.create(project: self, deadline: nil)
+    create_taskable(FinalReport)
   end
 
   # TODO: Make this available as an AASM helper
@@ -84,6 +81,13 @@ class Project < ActiveRecord::Base
     saved = aasm_fire_event(name, {:persist => true}, *args)
     raise RuntimeError, "event transition failed!" unless saved
     nil
+  end
+
+  private
+
+  def create_taskable(type)
+    deadline = Deadline.find_for_task_type(type)
+    type.create(project: self, deadline: deadline)
   end
 end
 
