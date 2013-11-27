@@ -18,7 +18,11 @@ class Project < ActiveRecord::Base
   state_machine do
     state :writing_proposal, initial: true, after_enter: :create_proposal
     state :writing_progress_report, after_enter: :create_progress_report
-    state :preparing_oral_presentation
+    state :preparing_oral_presentation,
+          after_enter: :create_oral_presentation_form
+    # TODO: Allow coordinator to create view_oral_presentation_schedule tasks
+    # TODO: Make preparing -> pending a timed transition
+    # TODO: Add view poster fair task to pending_completion
     state :pending_completion, after_enter: :create_final_report
     state :completed
 
@@ -64,6 +68,10 @@ class Project < ActiveRecord::Base
   def create_progress_report
     # TODO: Handle fetching deadlines from a configuration object
     ProgressReport.create(project: self, deadline: nil)
+  end
+
+  def create_oral_presentation_form
+    OralPresentationForm.create(project: self, deadline: nil)
   end
 
   def create_final_report
