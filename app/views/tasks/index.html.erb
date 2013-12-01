@@ -24,7 +24,8 @@
     <% @pending_tasks.each do |task| %>
     <tr>
       <td class="tasks-table-summary"><%= link_to task.summary, task %></td>
-      <td class="tasks-table-timestamp">
+      <td class="tasks-table-timestamp
+                 <% if task.overdue? %>tasks-table-overdue<% end %>">
         <%= render_datetime task.deadline.timestamp %>
       </td>
     </tr>
@@ -59,7 +60,8 @@
     <% @completed_tasks.each do |task| %>
     <tr>
       <td class="tasks-table-summary"><%= link_to task.summary, task %></td>
-      <td class="tasks-table-timestamp">
+      <td class="tasks-table-timestamp
+                 <% if task.late? %>tasks-table-overdue<% end %>">
         <%= render_datetime task.completed_at %>
       </td>
     </tr>
