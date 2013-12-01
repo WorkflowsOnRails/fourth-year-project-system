@@ -12,8 +12,8 @@ class PosterFairForm < ActiveRecord::Base
 
   aasm do
     state :not_submitted, initial: true, before_enter: :clear_requests
-    state :submitted, after_enter: [:record_submission, :notify_submitted]
-    state :closed, after_enter: [:record_submission]
+    state :submitted, after_enter: [:mark_completed, :notify_submitted]
+    state :closed, after_enter: :mark_completed
 
     event :submit do
       transitions from: [:not_submitted, :submitted], to: :submitted
@@ -53,10 +53,6 @@ class PosterFairForm < ActiveRecord::Base
 
   def clear_requests
     self.requests = ''
-  end
-
-  def record_submission
-    task.update_attributes(completed_at: DateTime.now)
   end
 
   def retract_submission

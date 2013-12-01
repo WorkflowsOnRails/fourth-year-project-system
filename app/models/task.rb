@@ -28,6 +28,20 @@ class Task < ActiveRecord::Base
     joins(:deadline).where('completed_at > deadlines.timestamp')
   }
 
+  def overdue?
+    completed_at.nil? && deadline.timestamp < DateTime.now
+  end
+
+  def late?
+    completed_at.present? && completed_at > deadline.timestamp
+  end
+
+  def mark_completed
+    if completed_at.nil?
+      update_attributes(completed_at: DateTime.now)
+    end
+  end
+
   def self.send_deadline_expired_events
     Task.overdue.where(expired_at: nil).each do |task|
       logger.info "Sending deadline expired event to Task #{task.id}"

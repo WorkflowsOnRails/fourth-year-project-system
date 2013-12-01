@@ -3,13 +3,14 @@ class FinalReport < ActiveRecord::Base
   include Taskable
 
   aasm do
-    state :failed
+    state :failed, after_enter: :mark_completed
 
     event :deadline_expired do
       after { notify_expired }
 
       transitions from: :writing_submission, to: :failed
       transitions from: :reviewing, to: :accepted
+      transitions from: :accepted, to: :accepted
     end
   end
 
@@ -28,10 +29,9 @@ class FinalReport < ActiveRecord::Base
   def notify_expired
   end
 
-  # TODO: Will there by any use in factoring this out?
   def record_submission
     transaction do
-      task.update_attributes(completed_at: DateTime.now)
+      mark_completed
       project.signal_or_raise!(:accept_final_report, nil, self)
     end
   end
