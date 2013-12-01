@@ -1,0 +1,17 @@
+<% content_for :banner do %>
+  Deadlines
+<% end %>
+
+<%= simple_form_for @deadline do |f| %>
+
+  <div class="form-inputs">
+    <%= f.input :code, as: :hidden %>
+    <%= f.input :timestamp, as: :date %>
+  </div>
+
+  <%= bootstrap_form_buttons do %>
+    <%= f.button :submit, "Schedule", class: 'btn btn-success' %>
+    <%= link_to "Cancel", :back, class: 'btn btn-default' %>
+  <% end %>
+
+<% end %>

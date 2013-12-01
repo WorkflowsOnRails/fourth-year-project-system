@@ -29,6 +29,9 @@
           </li>
 
           <% if current_user.is_coordinator? %>
+            <li class="<%= nav_class_for_controller('deadlines') %>">
+              <%= link_to 'Deadlines', deadlines_path %>
+            </li>
             <li class="<%= nav_class_for_controller('supervisors') %>">
               <%= link_to 'Supervisors', supervisors_path %>
             </li>

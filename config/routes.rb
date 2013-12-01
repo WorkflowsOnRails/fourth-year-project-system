@@ -40,6 +40,9 @@ FourthYearProjectSystem::Application.routes.draw do
   end
 
   resources :tasks
+  resources :deadlines do
+    get 'schedule'
+  end
 
   resources :supervisors
 

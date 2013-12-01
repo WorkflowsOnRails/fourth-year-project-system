@@ -1,0 +1,23 @@
+<% content_for :banner do %>
+  Deadlines
+<% end %>
+
+<table class="table table-hover table-condensed deadlines-table">
+  <tbody>
+    <% @deadlines.each do |deadline| %>
+      <tr>
+        <td class="deadlines-table-code"><%= deadline.code %></td>
+        <td class="deadlines-table-timestamp"><%= deadline.timestamp %></td>
+        <td class="deadlines-table-link">
+          <%= link_to 'Schedule', deadline_schedule_path(deadline.code),
+              class: 'btn btn-xs btn-primary pull-right' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+  <thead>
+    <th>Code</th>
+    <th>Timestamp</th>
+    <th></th>
+  </thead>
+</table>
