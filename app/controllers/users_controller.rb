@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @supervisors = []
     temp = User.all
     temp.each do |user|
-      if user.is_supervisor? && !user_supervises_project?(user, @project)
+      if user.is_supervisor? && !@project.has_supervisor?(user)
         @supervisors << user
       end
     end
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     @group_members = []
     temp = User.all
     temp.each do |user|
-      if user.is_group_member? && !group_member_in_project?(user, @project)
+      if user.is_group_member? && !@project.has_group_member?(user)
         @group_members << user
       end
     end
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     authorize @project
 
     # is the user in the project?
-    if !(user_supervises_project?(@user, @project) || group_member_in_project?(@user, @project))
+    if !(@project.has_participant?(@user))
       @user.join_project(@project)
       flash[:notice] = "User successfully added to project."
     else 
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     authorize @project
 
     # is the user in the project?
-    if user_supervises_project?(@user, @project) || group_member_in_project?(@user, @project)
+    if @project.has_participant?(@user)
       #is the user the last supervisor?
       if !(@user.is_supervisor? && @project.supervisors.length <= 1)
         @user.leave_project(@project)
@@ -61,16 +61,6 @@ class UsersController < ApplicationController
     end
 
     return redirect_to @project
-  end
-
-  private 
-
-  def user_supervises_project?(user, project)
-    user.is_supervisor? && project.supervisors.include?(user)
-  end
-
-  def group_member_in_project?(user, project)
-    user.is_group_member? && project.group_members.include?(user)
   end
 
 end

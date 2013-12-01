@@ -39,8 +39,18 @@ class SupervisorsController < ApplicationController
   def destroy
     authorize self
 
-    User.find(params[:id]).destroy
+    supervisor = User.find(params[:id])
 
+    #check every project that the user supervises, Cannot delete if only supervisor
+    supervisor.projects.each do |project|
+      if !(project.supervisors.length > 1)
+        flash[:alert] = "Supervisor cannot be deleted if they are the last Supervisor of a project"
+        return redirect_to action: :index
+      end
+    end
+
+    #if program gets here there is either no project or supervisor is not last supervisor in any project
+    supervisor.destroy
     flash[:notice] = "Supervisor deleted successfully"
     redirect_to action: :index
   end

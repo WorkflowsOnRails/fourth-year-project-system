@@ -9,10 +9,13 @@
   <tbody>
     <% @supervisors.each do |supervisor| %>
       <tr>
-        <td class="supervisors-table-name">
-          <%= link_to supervisor.full_name, supervisor_path(id: supervisor.id) %>
-        </td>
+        <td class="supervisors-table-name"><%= supervisor.full_name %></td>
         <td class="supervisors-table-email"><%= supervisor.email %></td>
+        <td class="supervisors-table-projects">
+          <% supervisor.projects.each do |project| %>
+            <%= project.name %>
+          <% end %>
+        </td>
         <td class="supervisors-table-actions table-actions">
           <%= button_to "Delete",
               {controller: :supervisors, action: :destroy, id: supervisor.id},
@@ -26,6 +29,7 @@
   <thead>
     <th>Full Name</th>
     <th>Email Address</th>
+    <th>Projects</th>
     <th></th>
   </thead>
 </table>
