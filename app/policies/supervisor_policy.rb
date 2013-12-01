@@ -7,5 +7,6 @@ class SupervisorPolicy < ApplicationPolicy
   end
 
   alias_method :create?, :access?
+  alias_method :destroy?, :access?
   alias_method :index?, :access?
 end
