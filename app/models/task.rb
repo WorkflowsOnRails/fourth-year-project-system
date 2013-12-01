@@ -31,9 +31,18 @@ class Task < ActiveRecord::Base
   def self.send_deadline_expired_events
     Task.overdue.where(expired_at: nil).each do |task|
       logger.info "Sending deadline expired event to Task #{task.id}"
-      task.taskable.try(:deadline_expired!)
-      task.update_attributes(expired_at: DateTime.now)
+      begin
+        task.taskable.try(:deadline_expired!)
+        task.update_attributes(expired_at: DateTime.now)
+      rescue Exception => e
+        logger.error <<-eos.strip_heredoc
+          Deadline expiration failed with #{e.message}
+          #{e.backtrace.join("\n")}
+        eos
+      end
     end
+
+    nil
   end
 end
 
