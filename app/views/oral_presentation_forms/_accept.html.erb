@@ -1,5 +1,3 @@
-<script>$(OralPresentationForm.renderAcceptForm);</script>
-
 <p>
   Hit the 'Accept Timetable' button to indicate that you are available
   during all of the timeslots marked in blue. Otherwise, visit the
@@ -8,12 +6,15 @@
 
 <div class="half-spacer"></div>
 
-<div id="accept-oral-form"></div>
+<div class="available-widget disabled">
+  <div class="available-parent"></div>
 
-<div class="half-spacer"></div>
+  <div class="half-spacer"></div>
 
-<%= form_tag controller: controller_name, action: 'accept',
-             method: 'post' do %>
-  <%= hidden_field_tag(:accept_available_times, taskable.available_times) %>
-  <%= submit_tag 'Accept Timetable', class: 'btn btn-primary pull-right' %>
-<% end %>
+  <%= form_tag controller: controller_name, action: 'accept',
+               method: 'post' do %>
+    <%= hidden_field_tag :accept_available_times, taskable.available_times,
+                         class: 'available-field' %>
+    <%= submit_tag 'Accept Timetable', class: 'btn btn-primary pull-right' %>
+  <% end %>
+</div>

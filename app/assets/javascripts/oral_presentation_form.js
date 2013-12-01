@@ -9,7 +9,7 @@
  *
  * @author Brendan MacDonell
  */
-var OralPresentationForm = (function() {
+(function() {
     var DAYS = [
       {name: "Mon", dayId: 1},
       {name: "Tue", dayId: 2},
@@ -18,34 +18,27 @@ var OralPresentationForm = (function() {
       {name: "Fri", dayId: 5}
     ];
 
-    var renderForm = function(options) {
-        var $serialized = $(options.fieldSelector);
+    var renderForm = function($widget) {
+        var $parent = $widget.find('.available-parent');
+        var $field = $widget.find('.available-field');
+        var disabled = $widget.hasClass('disabled');
+
         var available = new Available({
             days: DAYS,
-            "$parent": $(options.parentSelector),
-            disabled: options.disabled,
+            "$parent": $parent,
+            disabled: disabled,
             onChanged: function (availableIntervals) {
                 var asJson = JSON.stringify(availableIntervals);
-                $serialized.val(asJson);
+                $field.val(asJson);
             }
         });
-        var fromJson = JSON.parse($serialized.val());
+        var fromJson = JSON.parse($field.val());
         available.deserialize(fromJson);
     };
 
-    return {
-        renderAcceptForm: function () {
-            renderForm({
-                parentSelector: '#accept-oral-form',
-                fieldSelector: '#accept_available_times',
-                disabled: true
-            });
-        },
-        renderSubmitForm: function () {
-            renderForm({
-                parentSelector: '#submit-oral-form',
-                fieldSelector: '#submit_available_times'
-            });
-        }
-    };
+    $(document).ready(function () {
+        $('.available-widget').each(function () {
+            renderForm($(this));
+        });
+    });
 })();

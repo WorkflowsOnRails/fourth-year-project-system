@@ -1,5 +1,3 @@
-<script>$(OralPresentationForm.renderSubmitForm);</script>
-
 <p>
   Fill in the timetable by clicking or dragging to mark when you
   are available. To mark one or more cells as unavailable, click on or
@@ -8,12 +6,15 @@
 
 <div class="half-spacer"></div>
 
-<div id="submit-oral-form"></div>
+<div class="available-widget">
+  <div class="available-parent"></div>
 
-<div class="half-spacer"></div>
+  <div class="half-spacer"></div>
 
-<%= form_tag controller: controller_name, action: 'submit',
-             method: 'post' do %>
-  <%= hidden_field_tag(:submit_available_times, taskable.available_times) %>
-  <%= submit_tag 'Submit Timetable', class: 'btn btn-primary pull-right' %>
-<% end %>
+  <%= form_tag controller: controller_name, action: 'submit',
+               method: 'post' do %>
+    <%= hidden_field_tag :submit_available_times, taskable.available_times,
+                         class: 'available-field' %>
+    <%= submit_tag 'Submit Timetable', class: 'btn btn-primary pull-right' %>
+  <% end %>
+</div>
