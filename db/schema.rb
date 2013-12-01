@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131201042758) do
+ActiveRecord::Schema.define(version: 20131201184327) do
 
   create_table "deadlines", id: false, force: true do |t|
     t.string   "code",      null: false
@@ -19,6 +19,22 @@ ActiveRecord::Schema.define(version: 20131201042758) do
   end
 
   add_index "deadlines", ["code"], name: "index_deadlines_on_code", unique: true
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "feedback_events", force: true do |t|
     t.integer  "submission_event_id", null: false
@@ -106,6 +122,7 @@ ActiveRecord::Schema.define(version: 20131201042758) do
     t.string   "summary"
     t.datetime "completed_at"
     t.string   "deadline_id"
+    t.datetime "expired_at"
   end
 
   add_index "tasks", ["project_id"], name: "index_tasks_on_project_id"

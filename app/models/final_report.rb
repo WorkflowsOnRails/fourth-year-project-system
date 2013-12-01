@@ -20,9 +20,13 @@ class FinalReport < ActiveRecord::Base
   private
 
   # TODO:
-  # * notify_submitted
   # * notify_accepted
+  # * notify_expired
+  # * notify_submitted
   # * notify_returned
+
+  def notify_expired
+  end
 
   # TODO: Will there by any use in factoring this out?
   def record_submission

@@ -20,11 +20,21 @@ class Task < ActiveRecord::Base
   scope :pending, -> { where(completed_at: nil) }
   scope :completed, -> { where('completed_at is not null') }
   scope :overdue, -> {
-    joins(:deadline).where('deadlines.timestamp < ?', DateTime.now)
+    joins(:deadline)
+      .where(completed_at: nil)
+      .where('deadlines.timestamp < ?', DateTime.now)
   }
   scope :late, -> {
     joins(:deadline).where('completed_at > deadlines.timestamp')
   }
+
+  def self.send_deadline_expired_events
+    Task.overdue.where(expired_at: nil).each do |task|
+      logger.info "Sending deadline expired event to Task #{task.id}"
+      task.taskable.try(:deadline_expired!)
+      task.update_attributes(expired_at: DateTime.now)
+    end
+  end
 end
 
 # == Schema Information
