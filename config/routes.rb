@@ -26,8 +26,16 @@ FourthYearProjectSystem::Application.routes.draw do
 
   resources :oral_presentation_forms do
     member do
+      # TODO: Make these use patch too?
       post 'submit'
       post 'accept'
+    end
+  end
+
+  resources :poster_fair_forms do
+    member do
+      patch 'submit'
+      patch 'retract'
     end
   end
 

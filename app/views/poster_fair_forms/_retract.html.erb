@@ -1,0 +1,10 @@
+<p>
+  Retract your submission if you no longer need <strong>any</strong>
+  resources, or if you have made your submission in error.
+</p>
+
+<%= form_for @taskable, url: {action: 'retract'} do |f| %>
+  <div class="form-group text-right">
+    <%= f.submit 'Retract', class: 'btn btn-default' %>
+  </div>
+<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131127160936) do
+ActiveRecord::Schema.define(version: 20131201042758) do
 
   create_table "deadlines", id: false, force: true do |t|
     t.string   "code",      null: false
@@ -50,6 +50,11 @@ ActiveRecord::Schema.define(version: 20131127160936) do
     t.string "aasm_state"
     t.text   "available_times"
     t.text   "accepted_user_ids"
+  end
+
+  create_table "poster_fair_forms", force: true do |t|
+    t.string "aasm_state"
+    t.text   "requests"
   end
 
   create_table "programmes", force: true do |t|
