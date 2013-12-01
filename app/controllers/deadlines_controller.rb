@@ -1,43 +1,46 @@
 class DeadlinesController < ApplicationController
 
+  DEADLINES = [
+      ['Proposal', Proposal],
+      ['Progress Report', ProgressReport],
+      ['Oral Presentation Scheduling Form', OralPresentationForm],
+      ['Poster Fair Demo Form', PosterFairForm],
+      ['Final Report', FinalReport],
+    ]
+
   def index
-    @deadlines = []
-
-    @deadlines << Deadline.find_or_initialize_by_task_type(Proposal)
-    @deadlines << Deadline.find_or_initialize_by_task_type(ProgressReport)
-    @deadlines << Deadline.find_or_initialize_by_task_type(OralPresentationForm)
-    @deadlines << Deadline.find_or_initialize_by_task_type(PosterFairForm)
-    @deadlines << Deadline.find_or_initialize_by_task_type(FinalReport)
-  end
-
-  def schedule
-    @deadline = Deadline.find_or_initialize_by_task_type(Object.const_get(params[:deadline_id]))
-    authorize @deadline
-  end
-
-  def create
-    set_deadline
-    redirect_to action: :index
+    @deadlines = DEADLINES.map do |name, klass|
+      [name, Deadline.find_or_initialize_by_task_type(klass)]
+    end
+    render 'index'
   end
 
   def update
-    set_deadline
-    redirect_to action: :index
+    deadline = Deadline.find_or_initialize_by_task_type(deadline_class)
+    saved = deadline.update_attributes(deadline_params)
+
+    if saved
+      flash[:notice] = "Deadline updated successfully"
+      redirect_to deadlines_path
+     else
+      flash[:error] = <<-eos.html_safe
+        <strong>There was a problem with the deadline:</strong>
+        #{deadline.errors.full_messages.join('\n').downcase}
+      eos
+      index
+    end
   end
+
+  alias_method :create, :update
+
+  private
 
   def deadline_params
     params.require(:deadline).permit(:timestamp)
   end
 
-private
-
-  def set_deadline
-    #TODO: Cannot create deadline in past, need validation in model maybe?
-    if Deadline.find_or_initialize_by_task_type(Object.const_get(params[:deadline][:code])).update_attributes(deadline_params)
-      flash[:notice] = "Deadline scheduled successfully"
-    else
-      flash[:alert] = "Deadline cannot be scheduled in the past"
-    end
+  def deadline_class
+    Object.const_get(params[:deadline][:code])
   end
 
 end
