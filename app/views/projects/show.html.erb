@@ -19,10 +19,8 @@
 
 <p>Description: <%= @project.description %></p>
 
-<p>Programmes: 
-  <% @programmes.each do |programme| %>
-    <%= programme.programme %>,
-  <% end %>
+<p>Programmes:
+  <%= @project.programmes.map {|p| p.programme }.join(', ') %>
 </p>
 
 <h2>Supervisor</h2>

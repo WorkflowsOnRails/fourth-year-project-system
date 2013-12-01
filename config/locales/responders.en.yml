@@ -3,13 +3,13 @@ en:
     actions:
       create:
         notice: "%{resource_name} was successfully created."
-        alert: "%{resource_name} was not created."
+        alert: "%{resource_name} was not created due to errors. See below for more information."
       update:
         notice: "%{resource_name} was successfully updated."
-        alert: "%{resource_name} was not updated."
+        alert: "%{resource_name} was not updated due to errors. See below for more information."
       destroy:
         notice: "%{resource_name} was successfully destroyed."
-        alert: "%{resource_name} could not be destroyed."
+        alert: "%{resource_name} could not be destroyed. See below for more information."
       submit:
         notice: "Your %{downcase_resource_name} has been submitted."
         alert: "%{resource_name} contained errors and was not submitted."

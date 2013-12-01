@@ -8,13 +8,6 @@
     <%= f.input :name, required: true %>
     <%= f.input :description %>
 
-    <% if current_user.is_coordinator? %>
-      <%= f.input :supervisors, collection: @supervisors, required: true, as: :select, 
-          label_method: :full_name, value_method: :id %>
-    <% else %>
-      <%= f.input :supervisors, as: :hidden, input_html: { value: current_user.id } %>
-    <% end %>
-
     <%= f.input :programmes, collection: Programme::PROGRAMMES, required: true, as: :check_boxes %>
   </div>
 

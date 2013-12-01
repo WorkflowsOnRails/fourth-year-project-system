@@ -9,56 +9,37 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     authorize @project
-
-    @programmes = Programme.where(project_id: params[:id])
-
   end
 
   def new
     @project = Project.new
     authorize @project
-
-    @supervisors = User.where(role: User::SUPERVISOR_ROLE)
-
   end
 
   def create
     @project = Project.new(project_params)
     authorize @project
 
-    #find and add the specified supervisor to the project
-    supervisor = User.find(params[:project][:supervisors])
-    # TODO: Validate that the user is a supervisor
-    supervisor.join_project(@project)
-
     if @project.save
-  
-      #create programmes based on params
+      current_user.join_project(@project)
+
+      # create programmes based on params
       # TODO: Validation to ensure programmes were created properly, not sure if this is how this should be done either
-      params[:project][:programmes].each do |programme| 
+
+      params[:project][:programmes].each do |programme|
         Programme.create(programme: programme, project_id: @project.id)
       end
-
-      redirect_to @project
-    else
-      flash[:alert] = "Error(s) when creating project. See below for more information"
-      render :new #render the form again and show errors
     end
+
+    respond_with @project
   end
 
   def destroy
     @project = Project.find(params[:id])
     authorize @project
 
-    #remove programme references
-    Programme.where(project_id: params[:id]).each do |programme|
-      programme.destroy
-    end
-
     @project.destroy
-
-    flash[:notice] = "Project deleted successfully"
-    redirect_to action: :index
+    respond_with @project
   end
 
   def project_params
