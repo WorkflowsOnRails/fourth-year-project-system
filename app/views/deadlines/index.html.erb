@@ -16,9 +16,6 @@
                 {class: 'date form-control input-sm'} %>
             <%= f.submit 'Schedule', class: 'btn btn-sm btn-success' %>
           <% end %>
-          <% deadline.errors.full_messages.each do |message| %>
-            <p class="help-block has-error"><%= message %></p>
-          <% end %>
         </td>
       </tr>
     <% end %>
