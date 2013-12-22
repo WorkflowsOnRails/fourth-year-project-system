@@ -1,1 +1,4 @@
-TODO
+<%= render "supervisors/index", locals: {supervisors: @supervisors} %>
+
+<%= link_to 'Back', coordinators_path, class: 'btn btn-primary' %>
+<%= link_to 'Next', coordinator_set_deadlines_path, class: 'btn btn-primary' %>

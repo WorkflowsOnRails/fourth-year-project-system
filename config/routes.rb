@@ -49,6 +49,7 @@ FourthYearProjectSystem::Application.routes.draw do
   resources :coordinators, only: [:index] do
     post 'start_new_year'
     get 'select_supervisors'
+    get 'set_deadlines'
   end
 
   # Example of regular route:

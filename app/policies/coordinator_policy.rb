@@ -7,5 +7,6 @@ class CoordinatorPolicy < ApplicationPolicy
 
   alias_method :start_new_year?, :index?
   alias_method :select_supervisors?, :index?
+  alias_method :set_deadlines?, :index?
 
 end
