@@ -46,6 +46,11 @@ FourthYearProjectSystem::Application.routes.draw do
 
   resources :supervisors
 
+  resources :coordinators, only: [:index] do
+    post 'start_new_year'
+    get 'select_supervisors'
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -1,0 +1,8 @@
+<% content_for :banner do %>
+  Options
+<% end %>
+
+
+<%= button_to "Start New Year", coordinator_start_new_year_path(@current_user.id), class: 'btn btn-warning',
+    data: { confirm: 'This will delete ALL group member accounts and current projects. Are you sure you wish to proceed?' }
+%>
