@@ -6,6 +6,8 @@
 #
 # @author Brendan MacDonell
 class Task < ActiveRecord::Base
+  include Expirable
+
   belongs_to :project
   belongs_to :deadline
   belongs_to :taskable, polymorphic: true
@@ -24,6 +26,7 @@ class Task < ActiveRecord::Base
       .where(completed_at: nil)
       .where('deadlines.timestamp < ?', DateTime.now)
   }
+  scope :newly_expired, -> { overdue.where(expired_at: nil) }
   scope :late, -> {
     joins(:deadline).where('completed_at > deadlines.timestamp')
   }
@@ -42,21 +45,9 @@ class Task < ActiveRecord::Base
     end
   end
 
-  def self.send_deadline_expired_events
-    Task.overdue.where(expired_at: nil).each do |task|
-      logger.info "Sending deadline expired event to Task #{task.id}"
-      begin
-        task.taskable.try(:deadline_expired!)
-        task.update_attributes(expired_at: DateTime.now)
-      rescue Exception => e
-        logger.error <<-eos.strip_heredoc
-          Deadline expiration failed with #{e.message}
-          #{e.backtrace.join("\n")}
-        eos
-      end
-    end
-
-    nil
+  def deadline_expired
+    taskable.try(:deadline_expired!)
+    update_attributes(expired_at: DateTime.now)
   end
 end
 
