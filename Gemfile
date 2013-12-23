@@ -27,6 +27,8 @@ gem 'paperclip', '~> 3.0'
 gem 'will_paginate', '~> 3.0.0'
 gem 'stonepath', git: 'https://github.com/WorkflowsOnRails/stonepath.git', branch: 'rails-4'
 
+gem 'expirable', git: 'https://github.com/WorkflowsOnRails/expirable.git', branch: 'master'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
