@@ -10,6 +10,7 @@
     <%= f.input :email, required: true %>
     <%= f.input :password, required: true %>
     <%= f.input :password_confirmation, required: true %>
+    <%= f.hidden_field :redirect, value: @redirect %>
   </div>
 
   <%= bootstrap_form_buttons do %>
@@ -18,3 +19,6 @@
   <% end %>
 
 <% end %>
+
+
+REDIRECT = <%= @redirect %>

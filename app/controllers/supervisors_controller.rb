@@ -14,11 +14,13 @@ class SupervisorsController < ApplicationController
   def index
     authorize self
     @supervisors = User.where(role: User::SUPERVISOR_ROLE)
+    @redirect = "/supervisors"
   end
 
   def new
     authorize self
     @supervisor = User.new
+    @redirect = params[:redirect]
   end
 
   def create
@@ -29,7 +31,7 @@ class SupervisorsController < ApplicationController
 
     if @supervisor.save
       flash[:notice] = "Supervisor created successfully"
-      redirect_to action: :index #go back to the list of supervisors
+      redirect_to params[:user][:redirect]
     else
       flash[:alert] = "Error(s) when creating supervisor. See below for more information"
       render :new #render the form again and show errors
@@ -45,14 +47,14 @@ class SupervisorsController < ApplicationController
     supervisor.projects.each do |project|
       if !(project.supervisors.length > 1)
         flash[:alert] = "Supervisor cannot be deleted if they are the last Supervisor of a project"
-        return redirect_to action: :index
+        return redirect_to params[:redirect]
       end
     end
 
     #if program gets here there is either no project or supervisor is not last supervisor in any project
     supervisor.destroy
     flash[:notice] = "Supervisor deleted successfully"
-    redirect_to action: :index
+    redirect_to params[:redirect]
   end
 
   def user_params

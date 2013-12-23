@@ -25,6 +25,7 @@ class CoordinatorsController < ApplicationController
   def select_supervisors
     authorize self
     @supervisors = User.where(role: User::SUPERVISOR_ROLE)
+    @redirect = "/coordinators/select_supervisors"
   end
 
   def set_deadlines
