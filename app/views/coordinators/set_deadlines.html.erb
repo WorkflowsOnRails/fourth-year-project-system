@@ -1,4 +1,4 @@
-<%= render "deadlines/index", locals: {deadlines: @deadlines} %>
+<%= render "deadlines/index", locals: {deadlines: @deadlines, redirect: @redirect} %>
 
 <%= link_to 'Back', coordinators_select_supervisors_path, class: 'btn btn-primary' %>
 <%= link_to 'Finish', coordinators_path, class: 'btn btn-primary' %>

@@ -11,6 +11,7 @@
                    <% unless deadline.errors.empty? %>has-error<% end %>">
           <%= form_for deadline, class: 'form-inline' do |f| %>
             <%= f.hidden_field :code %>
+            <%= f.hidden_field :redirect, value: @redirect %>
             <%= f.date_select :timestamp,
                 {default: DateTime.now},
                 {class: 'date form-control input-sm'} %>

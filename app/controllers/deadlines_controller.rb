@@ -12,6 +12,7 @@ class DeadlinesController < ApplicationController
     @deadlines = DEADLINES.map do |name, klass|
       [name, Deadline.find_or_initialize_by_task_type(klass)]
     end
+    @redirect = "/deadlines"
     render 'index'
   end
 
@@ -21,7 +22,7 @@ class DeadlinesController < ApplicationController
 
     if saved
       flash[:notice] = "Deadline updated successfully"
-      redirect_to deadlines_path
+      redirect_to params[:deadline][:redirect]
      else
       flash[:error] = <<-eos.html_safe
         <strong>There was a problem with the deadline:</strong>

@@ -33,6 +33,7 @@ class CoordinatorsController < ApplicationController
     @deadlines = DeadlinesController::DEADLINES.map do |name, klass|
       [name, Deadline.find_or_initialize_by_task_type(klass)]
     end
+    @redirect = "/coordinators/set_deadlines"
   end
 
 end
