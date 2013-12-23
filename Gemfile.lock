@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/WorkflowsOnRails/expirable.git
+  revision: cb6c4f5ab97effd6dca4d49961ca53ebd30c575f
+  branch: master
+  specs:
+    expirable (1.0.0)
+      clockwork (~> 0.7)
+      delayed_job (~> 4.0)
+      rails (~> 4.0)
+
+GIT
   remote: https://github.com/WorkflowsOnRails/stonepath.git
   revision: 2a36d4642a557ff36c627641fffd8e1bf1c91e49
   branch: rails-4
@@ -241,6 +251,7 @@ DEPENDENCIES
   daemons
   delayed_job_active_record
   devise (~> 3.1.1)
+  expirable!
   foreman
   jbuilder (~> 1.2)
   jquery-rails
