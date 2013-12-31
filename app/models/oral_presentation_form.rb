@@ -40,7 +40,8 @@ class OralPresentationForm < ActiveRecord::Base
   end
 
   def accepted_users
-    all_users.select { |user| accepted_user_ids.include?(user.id) }
+    as_array = all_users.select { |user| accepted_user_ids.include?(user.id) }
+    Set.new(as_array)
   end
 
   def pending_users
