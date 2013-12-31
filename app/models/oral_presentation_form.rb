@@ -60,6 +60,7 @@ class OralPresentationForm < ActiveRecord::Base
   end
 
   def record_submission
+    mark_completed
   end
 
   private
