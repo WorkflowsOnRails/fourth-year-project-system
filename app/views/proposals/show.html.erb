@@ -18,7 +18,7 @@
   </div>
 </div>
 
-<h2>Submission History</h2>
-<%= render @log_events %>
+<%= render partial: 'submission_events/history',
+           locals: {log_events: @log_events} %>
 
 <%= will_paginate @log_events %>

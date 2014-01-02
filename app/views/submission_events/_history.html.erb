@@ -1,0 +1,6 @@
+<h2>Submission History</h2>
+<% if @log_events.empty? %>
+  <p>You have not yet made any submissions for this task.</p>
+<% else %>
+  <%= render log_events %>
+<% end %>
