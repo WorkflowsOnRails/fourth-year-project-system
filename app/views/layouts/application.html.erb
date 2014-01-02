@@ -49,6 +49,11 @@
                   class: 'navbar-link' %>
             </li>
             <li>
+              <p class="navbar-text navbar-role-name">
+                (<%= current_user.role_name %>)
+              </p>
+            </li>
+            <li>
               <%= link_to destroy_user_session_path,
                   method: :delete, class: 'navbar-link' do %>
                 logout

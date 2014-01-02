@@ -60,6 +60,17 @@ class User < ActiveRecord::Base
     role == COORDINATOR_ROLE
   end
 
+  def role_name
+    case role
+    when GROUP_MEMBER_ROLE
+      "student"
+    when SUPERVISOR_ROLE
+      "supervisor"
+    when COORDINATOR_ROLE
+      "coordinator"
+    end
+  end
+
   def join_project(a_project)
     if is_group_member?
       self.project = a_project
