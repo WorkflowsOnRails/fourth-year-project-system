@@ -31,6 +31,12 @@ class Task < ActiveRecord::Base
     joins(:deadline).where('completed_at > deadlines.timestamp')
   }
 
+  scope :by_completion_date, -> { order(:completed_at) }
+
+  def self.by_deadline
+    joins(:deadline).order('deadlines.timestamp')
+  end
+
   def overdue?
     completed_at.nil? && deadline.timestamp < DateTime.now
   end

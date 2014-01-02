@@ -8,8 +8,8 @@ class TasksController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @pending_tasks = current_user.tasks.pending
-    @completed_tasks = current_user.tasks.completed
+    @pending_tasks = current_user.tasks.pending.by_deadline
+    @completed_tasks = current_user.tasks.completed.by_completion_date
   end
 
   def show
