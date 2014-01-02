@@ -1,5 +1,5 @@
 <% content_for :banner do %>
-  Projects
+  <%= @project.name %>
 
   <% if policy(@project).destroy? %>
     <%= button_to "Delete",
