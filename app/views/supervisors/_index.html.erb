@@ -7,6 +7,16 @@
 
 <table class="table table-hover table-condensed supervisors-table">
   <tbody>
+    <% if @supervisors.empty? %>
+      <tr>
+        <td class="table-empty-message" colspan="4">
+          There are currently no supervisor accounts in the system.
+
+          <%= link_to 'Click here', new_supervisor_path(redirect: @redirect) %>
+          to create one.
+        </td>
+      </tr>
+    <% end %>
     <% @supervisors.each do |supervisor| %>
       <tr>
         <td class="supervisors-table-name"><%= supervisor.full_name %></td>
