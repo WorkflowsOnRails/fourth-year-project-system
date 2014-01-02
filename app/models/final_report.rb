@@ -3,13 +3,13 @@ class FinalReport < ActiveRecord::Base
   include Taskable
 
   aasm do
-    state :failed, after_enter: :mark_completed
-
     event :deadline_expired do
       after { notify_expired }
 
-      transitions from: :writing_submission, to: :failed
-      transitions from: :reviewing, to: :accepted
+      transitions from: :writing_submission, to: :failed,
+                  on_transition: :mark_completed
+      transitions from: :reviewing, to: :accepted,
+                  on_transition: :on_accepted
       transitions from: :accepted, to: :accepted
     end
   end

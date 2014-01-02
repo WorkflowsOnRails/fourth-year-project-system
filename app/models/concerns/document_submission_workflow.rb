@@ -15,11 +15,12 @@ module DocumentSubmissionWorkflow
 
   included do
     include AASM
+    include AasmProgressable::ModelMixin
 
     aasm do
       state :writing_submission, initial: true
       state :reviewing, enter: :notify_submitted
-      state :accepted, after_enter: [:notify_accepted, :record_submission]
+      state :completed
 
       event :submit do
         transitions from: [:writing_submission, :reviewing], to: :reviewing
@@ -31,9 +32,12 @@ module DocumentSubmissionWorkflow
       end
 
       event :accept do
-        transitions from: :reviewing, to: :accepted
+        transitions from: :reviewing, to: :completed,
+                    on_transition: :on_accepted
       end
     end
+
+    aasm_state_order [:writing_submission, :reviewing, :completed]
   end
 
   def notify_submitted
@@ -46,5 +50,10 @@ module DocumentSubmissionWorkflow
   end
 
   def record_submission
+  end
+
+  def on_accepted
+    record_submission
+    notify_accepted
   end
 end

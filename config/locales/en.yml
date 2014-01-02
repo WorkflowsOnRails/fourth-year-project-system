@@ -21,3 +21,9 @@
 
 en:
   hello: "Hello world"
+
+  activerecord:
+    attributes:
+      project:
+        aasm_state/preparing_oral_presentation: "Preparing presentation"
+        aasm_state/pending_completion: "Writing report"

@@ -6,6 +6,7 @@
 # @author Brendan MacDonell
 class Project < ActiveRecord::Base
   include StonePath::WorkItem
+  include AasmProgressable::ModelMixin
 
   has_many :tasks, dependent: :destroy
   has_many :group_members, class_name: 'User'
@@ -48,6 +49,12 @@ class Project < ActiveRecord::Base
       transitions from: :pending_completion, to: :completed
     end
   end
+
+  aasm_state_order [:writing_proposal,
+                    :writing_progress_report,
+                    :preparing_oral_presentation,
+                    :pending_completion,
+                    :completed]
 
   def has_group_member?(user)
     user.is_group_member? && group_members.include?(user)

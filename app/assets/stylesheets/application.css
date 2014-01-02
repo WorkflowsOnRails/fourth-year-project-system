@@ -10,6 +10,7 @@
  *
  *= require bootstrap_and_overrides
  *= require available
+ *= require aasm_progressable
  *= require_self
  *= require_tree .
  */

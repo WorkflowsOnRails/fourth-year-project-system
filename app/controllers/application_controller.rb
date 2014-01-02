@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  helper AasmProgressable::Helper
+
   self.responder = AppResponder
   respond_to :html
 

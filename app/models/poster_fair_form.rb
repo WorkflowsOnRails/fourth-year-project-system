@@ -8,6 +8,7 @@
 # @author Brendan MacDonell
 class PosterFairForm < ActiveRecord::Base
   include AASM
+  include AasmProgressable::ModelMixin
   include Taskable
 
   aasm do
@@ -28,6 +29,8 @@ class PosterFairForm < ActiveRecord::Base
       transitions from: [:not_submitted, :submitted], to: :closed
     end
   end
+
+  aasm_state_order [:not_submitted, :submitted, :closed]
 
   with_options if: :submitted? do |m|
     m.validates :requests, presence: true

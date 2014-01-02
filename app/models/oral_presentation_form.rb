@@ -5,6 +5,7 @@
 # @author Brendan MacDonell
 class OralPresentationForm < ActiveRecord::Base
   include AASM
+  include AasmProgressable::ModelMixin
   include Taskable
 
   aasm whiny_transitions: false do
@@ -22,6 +23,8 @@ class OralPresentationForm < ActiveRecord::Base
                   guard: :all_users_accepted?
     end
   end
+
+  aasm_state_order [:writing_submission, :reviewing, :accepted]
 
   serialize :accepted_user_ids, Set
   after_initialize :set_defaults
