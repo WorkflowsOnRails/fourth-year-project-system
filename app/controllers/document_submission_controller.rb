@@ -2,7 +2,7 @@
 #
 # @author Brendan MacDonell
 class DocumentSubmissionController < ApplicationController
-  include StateActionRenderable
+  include AasmActionable::ControllerMixin
 
   before_action :authenticate_user!
 

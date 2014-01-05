@@ -1,6 +1,6 @@
 # @author Brendan MacDonell
 class OralPresentationFormsController < ApplicationController
-  include StateActionRenderable
+  include AasmActionable::ControllerMixin
 
   before_action :authenticate_user!
 

@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/WorkflowsOnRails/aasm_actionable.git
+  revision: acb29a4d70d4772f22c9fc129d7772c8af3069e6
+  branch: master
+  specs:
+    aasm_actionable (1.0.0)
+      aasm (~> 3.0)
+      pundit (~> 0.2.1)
+      rails (~> 4.0)
+
+GIT
   remote: https://github.com/WorkflowsOnRails/aasm_progressable.git
   revision: da2de15f38180f9f80c824d1664732479181d0f9
   branch: master
@@ -249,6 +259,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm (~> 3.0.0)
+  aasm_actionable!
   aasm_progressable!
   anjlab-bootstrap-rails (>= 3.0.0.0)
   annotate (>= 2.5.0)

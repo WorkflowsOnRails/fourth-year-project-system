@@ -27,6 +27,7 @@ gem 'paperclip', '~> 3.0'
 gem 'will_paginate', '~> 3.0.0'
 gem 'stonepath', git: 'https://github.com/WorkflowsOnRails/stonepath.git', branch: 'rails-4'
 
+gem 'aasm_actionable', git: 'https://github.com/WorkflowsOnRails/aasm_actionable.git', branch: 'master'
 gem 'aasm_progressable', git: 'https://github.com/WorkflowsOnRails/aasm_progressable.git', branch: 'master'
 gem 'expirable', git: 'https://github.com/WorkflowsOnRails/expirable.git', branch: 'master'
 
