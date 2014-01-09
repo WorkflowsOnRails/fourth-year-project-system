@@ -60,3 +60,11 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
 end
+
+group :test do
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'random_data'
+  gem 'simplecov'
+end

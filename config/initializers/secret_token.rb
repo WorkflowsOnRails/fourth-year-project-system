@@ -9,7 +9,7 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-if Rails.env == 'development'
+if ['development', 'test'].include? Rails.env
   secret_key_base = 'decabf93f7fd8908217a4a75096534285ed82886fb9681040659795f6ae086a022d8cabd300cc051b4ff0c049cf970b6ca639fee15d2f6a779b55e1fb7e83458'
 else
   secret_key_base = ENV['SECRET_KEY_BASE']
