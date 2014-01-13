@@ -32,6 +32,8 @@ FourthYearProjectSystem::Application.routes.draw do
     end
   end
 
+  resources :oral_presentations
+
   resources :poster_fair_forms do
     member do
       patch 'submit'

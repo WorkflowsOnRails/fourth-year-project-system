@@ -25,9 +25,9 @@ module ApplicationHelper
 
   # Render a datetime into a format useable by jquery.localtime
   # @author Brendan MacDonell
-  def render_datetime(datetime)
+  def render_datetime(datetime, format='')
     return nil if datetime.nil?
-    content_tag :span, datetime.iso8601, {'data-localtime-format' => ''}
+    content_tag :span, datetime.iso8601, {'data-localtime-format' => format}
   end
 
   # Helper for a row of buttons in a form rendered with our default styling

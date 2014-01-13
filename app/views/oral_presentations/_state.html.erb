@@ -1,0 +1,18 @@
+<div>
+  <div>
+    <label>Date:</label>
+    <%= render_datetime taskable.start, 'ddddd, MMMMM d yyyy' %>
+  </div>
+  <div>
+    <label>Venue:</label>
+    <%= taskable.venue %>
+  </div>
+  <div>
+    <label>Timeslot:</label>
+    <span>
+      <%= render_datetime taskable.start, 'h:mm a' %>
+      &ndash;
+      <%= render_datetime taskable.finish, 'h:mm a' %>
+    </span>
+  </div>
+</div>

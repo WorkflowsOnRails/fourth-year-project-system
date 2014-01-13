@@ -66,6 +66,16 @@ class OralPresentationForm < ActiveRecord::Base
     mark_completed
   end
 
+  # Available times as a list of hashes, each specifying the ID of the day
+  #  (where Sunday is 0), the start time in minutes since the beginning of
+  #  the day, and the end time in minutes since the beginning of the day.
+  def decode_available_times
+    unless @decoded_available_times
+      @decoded_available_times = ActiveSupport::JSON.decode(available_times)
+    end
+    @decoded_available_times
+  end
+
   private
 
   def set_defaults

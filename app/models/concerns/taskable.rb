@@ -17,7 +17,8 @@ module Taskable
     has_one :project, through: :task
 
     extend Forwardable
-    def_delegators :task, :deadline, :completed_at, :mark_completed
+    def_delegators :task, :deadline, :completed_at, :mark_completed,
+                   :completed?, :late?, :overdue?
   end
 
   module ClassMethods

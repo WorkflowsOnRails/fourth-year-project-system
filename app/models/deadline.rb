@@ -1,8 +1,15 @@
+# TOOD
+#
+# @author Brendan MacDonell
 class Deadline < ActiveRecord::Base
   self.primary_key = :code
 
   validates :timestamp, presence: true
   validate :timestamp_cannot_be_in_the_past
+
+  def self.unique
+    Deadline.new(code: SecureRandom.uuid)
+  end
 
   def self.find_for_task_type(type)
     Deadline.find(code_for_task_type(type))
