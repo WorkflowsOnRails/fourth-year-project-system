@@ -39,7 +39,7 @@ end
 gem 'puma'
 gem 'foreman'
 
-group :development do
+group :development, :test do
   gem 'pry'
   gem 'pry-doc'
   gem 'pry-debugger'
@@ -67,4 +67,5 @@ group :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'random_data'
   gem 'simplecov'
+  gem 'timecop'
 end

@@ -6,6 +6,7 @@ require 'minitest/autorun'
 require 'capybara/dsl'
 require 'capybara/rails'
 
+
 SimpleCov.start
 
 
@@ -17,9 +18,14 @@ end
 module TestHelper
   ActiveRecord::Migration.check_pending!
 
+  extend ActiveSupport::Concern
   include Capybara::DSL
 
-  def setup
+  included do
+    setup :setup_database
+  end
+
+  def setup_database
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.start
@@ -27,5 +33,49 @@ module TestHelper
 
   def teardown
     DatabaseCleaner.clean
+  end
+
+  def refresh_page
+    visit current_url
+  end
+
+  module Users
+    extend ActiveSupport::Concern
+
+    included do
+      setup :setup_users
+    end
+
+    def setup_users
+      # Keep track of the attributes so that we have access to the password
+      @student_attrs = attributes_for(:student)
+      @student = User.create(@student_attrs)
+
+      @coordinator_attrs = attributes_for(:coordinator)
+      @coordinator = User.create(@coordinator_attrs)
+    end
+
+    def login_student
+      login_with_attrs @student_attrs
+    end
+
+    def login_coordinator
+      login_with_attrs @coordinator_attrs
+    end
+
+    def logout
+      click_on 'logout'
+    end
+
+    private
+
+    def login_with_attrs attrs
+      visit '/'
+      within 'form#new_user' do
+        fill_in 'Email', with: attrs[:email]
+        fill_in 'Password', with: attrs[:password]
+        click_on 'Sign in'
+      end
+    end
   end
 end

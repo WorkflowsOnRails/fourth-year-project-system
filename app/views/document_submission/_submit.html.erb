@@ -2,7 +2,7 @@
     url: url_for(controller: controller_name, action: :submit, only_path: true),
     html: {role: 'form'} do |f| %>
   <div class="form-group">
-    <label>New Submission:</label>
+    <%= f.label :attachment, 'New Submission:' %>
     <%= f.file_field :attachment, class: 'inline' %>
   </div>
   <div class="form-group">
