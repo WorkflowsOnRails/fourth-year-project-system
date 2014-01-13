@@ -20,9 +20,8 @@ class Project < ActiveRecord::Base
     state :writing_proposal, initial: true, after_enter: :create_proposal
     state :writing_progress_report,
           after_enter: [:create_progress_report, :create_oral_presentation_form]
-    state :preparing_oral_presentation #, after_enter: 
+    state :preparing_oral_presentation
     # TODO: Allow coordinator to create view_oral_presentation_schedule tasks
-    # TODO: Make preparing -> pending a timed transition
     # TODO: Add view poster fair task to pending_completion
     state :pending_completion,
           after_enter: [:create_poster_fair_form, :create_final_report]

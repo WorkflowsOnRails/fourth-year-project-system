@@ -53,7 +53,7 @@ module OralPresentationScheduling
     def all_timeslots
       unless @all_timeslots.present?
         @all_timeslots = (1..5).map do |day_id|
-          Timeslot.new(day_id, @day_start_minute, @day_end_minute)
+          Timeslot.new(self, day_id, @day_start_minute, @day_end_minute)
         end
       end
 
@@ -296,6 +296,11 @@ class SchedulingService
     reservations = scheduler.schedule_all
     clear_existing_presentations
     reservations.map { |r| create_oral_presentation_task(r) }
+  end
+
+  def self.schedule_all(date_in_week, day_start_time, day_end_time)
+    service = SchedulingService.new(date_in_week, day_start_time, day_end_time)
+    service.schedule_all
   end
 
   private

@@ -1,8 +1,57 @@
 <% content_for :banner do %>
-  Options
+  Administration
 <% end %>
 
 
-<%= button_to "Start New Year", coordinators_start_new_year_path, class: 'btn btn-warning',
-    data: { confirm: 'This will delete ALL group member accounts and current projects. Are you sure you wish to proceed?' }
-%>
+<table class="table table-administration">
+  <tbody>
+    <tr>
+      <td>
+        <%= link_to "Manage deadlines", deadlines_path,
+            class: 'btn btn-xs btn-primary' %>
+      </td>
+      <td>
+        Schedule project deadlines for the current academic year.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= link_to "Manage supervisors", supervisors_path,
+            class: 'btn btn-xs btn-primary' %>
+      </td>
+      <td>
+        Create and remove supervisor accounts.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= link_to "Schedule oral presentations", scheduling_request_path,
+            class: 'btn btn-xs btn-primary' %>
+      </td>
+      <td>
+        Automatically schedule oral presentations according to submitted oral
+        presentation forms.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= button_to "Start new year", coordinators_start_new_year_path,
+            class: 'btn btn-xs btn-primary',
+            data: { confirm: 'This will delete ALL group member accounts and
+                              current projects.
+                              Are you sure you wish to proceed?' } %>
+      </td>
+      <td>
+        Prepare the system to for another year of projects by deleting
+        all group member accounts and projects, then updating supervisor
+        accounts and deadlines.
+      </td>
+    </tr>
+  </tbody>
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+</table>

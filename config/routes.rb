@@ -39,6 +39,14 @@ FourthYearProjectSystem::Application.routes.draw do
     end
   end
 
+  resources :oral_presentations do
+    member do
+      patch 'update_schedule'
+    end
+  end
+
+  resource :scheduling_request, only: [:show, :create]
+
   resources :poster_fair_forms do
     member do
       patch 'submit'

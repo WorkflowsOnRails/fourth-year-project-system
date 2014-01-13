@@ -1,0 +1,23 @@
+<% content_for :banner do %>
+  Schedule Oral Presentations
+<% end %>
+
+<div class="row">
+  <p class="col-md-offset-2 col-md-8">
+    Use this form to automatically schedule oral presentation times.
+    Choose a date that falls during the oral presentation week, along with
+    the time period during which oral presentations can run each day, and
+    then click "Schedule Presentations" to request that the system compile
+    a schedule that meets your constraints.
+  </p>
+</div>
+
+<%= simple_form_for @request, url: scheduling_request_path do |f| %>
+  <%= f.input :date_in_week, label: 'Schedule for the week of', as: :date %>
+  <%= f.input :day_start_time, label: 'Start At', as: :time %>
+  <%= f.input :day_end_time, label: 'End At', as: :time %>
+
+  <%= bootstrap_form_buttons do %>
+    <%= f.submit 'Schedule Presentations', class: 'btn btn-primary' %>
+  <% end %>
+<% end %>
