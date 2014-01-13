@@ -19,7 +19,7 @@ class OralPresentation < ActiveRecord::Base
 
   aasm whiny_transitions: false do
     state :planning_presentation, initial: true
-    state :completed, enter: :mark_completed
+    state :completed, enter: :on_completed
 
     event :update_schedule do
       transitions from: :planning_presentation, to: :planning_presentation
@@ -44,6 +44,11 @@ class OralPresentation < ActiveRecord::Base
     # Oral presentation deadlines are unique, so we don't want extras to
     #  accumulate if we schedule presentations many times.
     task.deadline.destroy
+  end
+
+  def on_completed
+    project.finish_presentation
+    mark_completed
   end
 
 end
