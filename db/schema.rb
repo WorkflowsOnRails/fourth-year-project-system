@@ -69,10 +69,11 @@ ActiveRecord::Schema.define(version: 20140112205510) do
   end
 
   create_table "oral_presentations", force: true do |t|
-    t.string   "aasm_state"
-    t.string   "venue",      null: false
-    t.datetime "start",      null: false
-    t.datetime "finish",     null: false
+    t.string "aasm_state"
+    t.string "venue",      null: false
+    t.date   "date",       null: false
+    t.time   "start",      null: false
+    t.time   "finish",     null: false
   end
 
   create_table "poster_fair_forms", force: true do |t|

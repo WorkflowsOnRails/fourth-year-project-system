@@ -1,3 +1,4 @@
+# TODO: Use a routing concern for this instead.
 def document_submission_resources(name)
   resources name do
     member do
@@ -32,7 +33,11 @@ FourthYearProjectSystem::Application.routes.draw do
     end
   end
 
-  resources :oral_presentations
+  resources :oral_presentations do
+    member do
+      patch 'update_schedule'
+    end
+  end
 
   resources :poster_fair_forms do
     member do

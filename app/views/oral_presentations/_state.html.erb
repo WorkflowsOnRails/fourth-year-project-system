@@ -1,7 +1,7 @@
 <div>
   <div>
     <label>Date:</label>
-    <%= render_datetime taskable.start, 'ddddd, MMMMM d yyyy' %>
+    <%= taskable.date.strftime('%A, %e %B %Y') %>
   </div>
   <div>
     <label>Venue:</label>
@@ -10,9 +10,9 @@
   <div>
     <label>Timeslot:</label>
     <span>
-      <%= render_datetime taskable.start, 'h:mm a' %>
+      <%= taskable.start.strftime('%l:%M %p') %>
       &ndash;
-      <%= render_datetime taskable.finish, 'h:mm a' %>
+      <%= taskable.finish.strftime('%l:%M %p') %>
     </span>
   </div>
 </div>

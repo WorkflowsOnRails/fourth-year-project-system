@@ -50,6 +50,7 @@ h1 .btn-group.pull-right {
 }
 
 .date.form-control,
+.time.form-control,
 .datetime.form-control {
     display: inline-block;
     width: auto;

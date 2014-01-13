@@ -1,0 +1,10 @@
+<%= simple_form_for taskable, method: :patch,
+    url: update_schedule_oral_presentation_path(taskable) do |f| %>
+  <%= f.input :venue %>
+  <%= f.input :date %>
+  <%= f.input :start %>
+  <%= f.input :finish %>
+  <%= bootstrap_form_buttons do %>
+    <%= f.submit 'Update Schedule', class: 'btn btn-primary' %>
+  <% end %>
+<% end %>

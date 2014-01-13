@@ -10,14 +10,20 @@ class OralPresentation < ActiveRecord::Base
   include Taskable
 
   validates :venue, presence: true
+  validates :date, presence: true
   validates :start, presence: true
   validates :finish, presence: true
 
+  before_destroy :destroy_task
   before_destroy :destroy_deadline
 
   aasm whiny_transitions: false do
     state :planning_presentation, initial: true
     state :completed, enter: :mark_completed
+
+    event :update_schedule do
+      transitions from: :planning_presentation, to: :planning_presentation
+    end
 
     event :deadline_expired do
       transitions from: :planning_presentation, to: :completed
@@ -28,6 +34,10 @@ class OralPresentation < ActiveRecord::Base
 
   def self.summarize(project: nil, **options)
     "Oral Presentation for #{project.name}"
+  end
+
+  def destroy_task
+    task.destroy
   end
 
   def destroy_deadline

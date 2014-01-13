@@ -16,8 +16,8 @@ module OralPresentationScheduling
   #  scheduled, such as which week they occur in, when they start and end each
   #  day, and what time zone they are to be scheduled in.
   class ScheduleRange
-    def initialize(date_in_week, time_zone, day_start_time, day_end_time)
-      @date_in_week = date_in_week.in_time_zone(time_zone)
+    def initialize(date_in_week, day_start_time, day_end_time)
+      @date_in_week = date_in_week
       @day_start_minute = time_to_minute(day_start_time)
       @day_end_minute = time_to_minute(day_end_time)
       @all_timeslots = nil
@@ -286,9 +286,9 @@ end
 class SchedulingService
   include OralPresentationScheduling
 
-  def initialize(date_in_week, day_start_time, day_end_time, time_zone)
-    @schedule_range = ScheduleRange.new(date_in_week, time_zone,
-                                        day_start_time, day_end_time)
+  def initialize(date_in_week, day_start_time, day_end_time)
+    @schedule_range = ScheduleRange.new(date_in_week, day_start_time,
+                                        day_end_time)
   end
 
   def schedule_all
@@ -324,8 +324,9 @@ class SchedulingService
         project: reservation.project,
         deadline: deadline,
         venue: "##{reservation.venue + 1}",
-        start: start,
-        finish: finish,
+        date: start.to_date,
+        start: start.to_time,
+        finish: finish.to_time,
       )
     end
   end

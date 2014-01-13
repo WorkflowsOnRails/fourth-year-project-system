@@ -7,7 +7,7 @@ class OralPresentationPolicy < ApplicationPolicy
       user.is_coordinator?
   end
 
-  def update?
+  def update_schedule?
     user.is_coordinator?
   end
 
