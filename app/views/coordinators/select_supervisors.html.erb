@@ -1,4 +1,10 @@
 <%= render "supervisors/index", locals: {supervisors: @supervisors, redirect: @redirect} %>
 
-<%= link_to 'Back', coordinators_path, class: 'btn btn-primary' %>
-<%= link_to 'Next', coordinators_set_deadlines_path, class: 'btn btn-primary' %>
+<ul class="pager">
+  <li class="previous">
+    <%= link_to coordinators_path do %>&larr; Back<% end %>
+  </li>
+  <li class="next">
+    <%= link_to coordinators_set_deadlines_path do %>Next &rarr;<% end %>
+  </li>
+</ul>
