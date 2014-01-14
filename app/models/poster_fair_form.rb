@@ -62,3 +62,12 @@ class PosterFairForm < ActiveRecord::Base
     task.update_attributes(completed_at: nil)
   end
 end
+
+# == Schema Information
+#
+# Table name: poster_fair_forms
+#
+#  id         :integer          not null, primary key
+#  aasm_state :string(255)
+#  requests   :text
+#

@@ -26,4 +26,7 @@ end
 #  created_at          :datetime
 #  updated_at          :datetime
 #
-
+# Indexes
+#
+#  index_feedback_events_on_submission_event_id  (submission_event_id)
+#

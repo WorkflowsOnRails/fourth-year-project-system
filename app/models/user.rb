@@ -121,4 +121,9 @@ end
 #  created_at             :datetime
 #  updated_at             :datetime
 #
-
+# Indexes
+#
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_project_id            (project_id)
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#

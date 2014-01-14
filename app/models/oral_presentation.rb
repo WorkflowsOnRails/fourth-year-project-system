@@ -52,3 +52,15 @@ class OralPresentation < ActiveRecord::Base
   end
 
 end
+
+# == Schema Information
+#
+# Table name: oral_presentations
+#
+#  id         :integer          not null, primary key
+#  aasm_state :string(255)
+#  venue      :string(255)      not null
+#  date       :date             not null
+#  start      :time             not null
+#  finish     :time             not null
+#

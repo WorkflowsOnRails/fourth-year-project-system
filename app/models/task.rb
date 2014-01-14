@@ -70,7 +70,11 @@ end
 #  taskable_type :string(255)
 #  taskable_id   :integer
 #  summary       :string(255)
-#  deadline      :datetime
 #  completed_at  :datetime
+#  deadline_id   :string(255)
+#  expired_at    :datetime
 #
-
+# Indexes
+#
+#  index_tasks_on_project_id  (project_id)
+#

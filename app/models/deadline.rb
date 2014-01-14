@@ -31,3 +31,15 @@ class Deadline < ActiveRecord::Base
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: deadlines
+#
+#  code      :string(255)      not null, primary key
+#  timestamp :datetime         not null
+#
+# Indexes
+#
+#  index_deadlines_on_code  (code) UNIQUE
+#

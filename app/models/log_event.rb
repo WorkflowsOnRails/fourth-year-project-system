@@ -20,4 +20,9 @@ end
 #  details_type :string(255)      not null
 #  created_at   :datetime
 #
-
+# Indexes
+#
+#  index_log_events_on_details_id_and_details_type  (details_id,details_type)
+#  index_log_events_on_task_id                      (task_id)
+#  index_log_events_on_user_id                      (user_id)
+#

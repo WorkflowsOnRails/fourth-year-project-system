@@ -88,3 +88,13 @@ class OralPresentationForm < ActiveRecord::Base
     Set.new(project.group_members + project.supervisors)
   end
 end
+
+# == Schema Information
+#
+# Table name: oral_presentation_forms
+#
+#  id                :integer          not null, primary key
+#  aasm_state        :string(255)
+#  available_times   :text
+#  accepted_user_ids :text
+#
