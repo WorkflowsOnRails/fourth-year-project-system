@@ -2,56 +2,27 @@
   Administration
 <% end %>
 
-
-<table class="table table-administration">
-  <tbody>
-    <tr>
-      <td>
-        <%= link_to "Manage deadlines", deadlines_path,
-            class: 'btn btn-xs btn-primary' %>
-      </td>
-      <td>
-        Schedule project deadlines for the current academic year.
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= link_to "Manage supervisors", supervisors_path,
-            class: 'btn btn-xs btn-primary' %>
-      </td>
-      <td>
-        Create and remove supervisor accounts.
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= link_to "Schedule oral presentations", scheduling_request_path,
-            class: 'btn btn-xs btn-primary' %>
-      </td>
-      <td>
-        Automatically schedule oral presentations according to submitted oral
-        presentation forms.
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= button_to "Start new year", coordinators_start_new_year_path,
-            class: 'btn btn-xs btn-primary',
-            data: { confirm: 'This will delete ALL group member accounts and
-                              current projects.
-                              Are you sure you wish to proceed?' } %>
-      </td>
-      <td>
-        Prepare the system to for another year of projects by deleting
-        all group member accounts and projects, then updating supervisor
-        accounts and deadlines.
-      </td>
-    </tr>
-  </tbody>
-  <thead>
-    <tr>
-      <th>Action</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-</table>
+<div class="list-group">
+  <a href="<%= deadlines_path %>" class="list-group-item">
+    <h4>Manage Deadlines</h4>
+    Schedule project deadlines for the current academic year.
+  </a>
+  <a href="<%= supervisors_path %>" class="list-group-item">
+    <h4>Manage Supervisors</h4>
+    Create, view, and remove supervisor accounts.
+  </a>
+  <a href="<%= scheduling_request_path %>" class="list-group-item">
+    <h4>Schedule Oral Presentations</h4>
+    Automatically schedule oral presentations according to submitted oral
+    presentation forms.
+  </a>
+  <%= link_to coordinators_start_new_year_path, method: :post,
+      class: 'list-group-item',
+      data: { confirm: 'This will delete ALL group member accounts and current projects. Are you sure you wish to proceed?'
+            } do %>
+    <h4>Start New Year</h4>
+    Prepare the system to for another year of projects by deleting
+    all group member accounts and projects, then updating supervisor
+    accounts and deadlines.
+  <% end %>
+</div>
