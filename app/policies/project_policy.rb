@@ -4,12 +4,16 @@ class ProjectPolicy < ApplicationPolicy
     true
   end
 
+  def show_tasks?
+    project.has_participant? user || user.is_coordinator?
+  end
+
   def create?
-    @user.is_supervisor?
+    user.is_supervisor?
   end
 
   def update?
-    @user.is_coordinator? || user_supervises_project?
+    user.is_coordinator? || user_supervises_project?
   end
 
   alias_method :destroy?, :update?
@@ -28,12 +32,10 @@ class ProjectPolicy < ApplicationPolicy
 
   private
 
-  def user_supervises_project?
-    @user.is_supervisor? && @record.supervisors.include?(@user)
-  end
+  alias_method :project, :record
 
-  def group_member_in_project?
-    @user.is_group_member? && @record.group_members.include?(@user)
+  def user_supervises_project?
+    project.has_supervisor? user
   end
 
 end

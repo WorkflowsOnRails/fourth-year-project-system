@@ -1,18 +1,10 @@
 # @author Brendan MacDonell
-class OralPresentationFormPolicy < ApplicationPolicy
-  alias_method :taskable, :record
-
-  def show?
-    taskable.project.has_participant?(user) ||
-      user.is_coordinator?
-  end
-
+class OralPresentationFormPolicy < BaseTaskPolicy
   def submit?
-    taskable.project.has_participant?(user)
+    user_participates_in_project?
   end
 
   def accept?
-    taskable.project.has_participant?(user) &&
-      !taskable.accepted_users.include?(user)
+    user_participates_in_project? && !taskable.accepted_users.include?(user)
   end
 end
