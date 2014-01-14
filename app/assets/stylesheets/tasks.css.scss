@@ -8,8 +8,16 @@
   font-style: italic;
 }
 
+.tasks-table {
+  table-layout: fixed;
+}
+
+.tasks-table-status {
+  width: 25%;
+}
+
 .tasks-table-timestamp {
-  width: 30%;
+  width: 25%;
 }
 
 .table-empty-message {
