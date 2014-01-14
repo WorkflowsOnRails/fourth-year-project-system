@@ -49,10 +49,16 @@ class Task < ActiveRecord::Base
     completed_at.present? && completed_at > deadline.timestamp
   end
 
-  def mark_completed
-    if completed_at.nil?
-      update_attributes(completed_at: DateTime.now)
-    end
+  def mark_completed(timestamp=nil)
+    timestamp = DateTime.now if timestamp.nil?
+    update(completed_at: timestamp)
+  end
+
+  # Record the task as being completed exactly on the deadline so that a
+  # task type that always closes due to deadline expiration is not marked
+  # as being late.
+  def mark_completed_at_deadline
+    mark_completed(deadline.timestamp)
   end
 
   def deadline_expired

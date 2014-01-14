@@ -48,7 +48,7 @@ class OralPresentation < ActiveRecord::Base
 
   def on_completed
     project.finish_presentation
-    mark_completed
+    mark_completed_at_deadline
   end
 
 end

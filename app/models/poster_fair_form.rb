@@ -14,7 +14,7 @@ class PosterFairForm < ActiveRecord::Base
   aasm do
     state :not_submitted, initial: true, before_enter: :clear_requests
     state :submitted, after_enter: [:mark_completed, :notify_submitted]
-    state :closed, after_enter: :mark_completed
+    state :closed, after_enter: :mark_completed_at_deadline
 
     event :submit do
       transitions from: [:not_submitted, :submitted], to: :submitted
