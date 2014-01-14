@@ -8,9 +8,9 @@ class FinalReport < ActiveRecord::Base
 
       transitions from: :writing_submission, to: :failed,
                   on_transition: :mark_completed
-      transitions from: :reviewing, to: :accepted,
+      transitions from: :reviewing, to: :completed,
                   on_transition: :on_accepted
-      transitions from: :accepted, to: :accepted
+      transitions from: :completed, to: :completed
     end
   end
 
