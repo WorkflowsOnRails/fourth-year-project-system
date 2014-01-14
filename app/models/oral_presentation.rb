@@ -19,7 +19,7 @@ class OralPresentation < ActiveRecord::Base
 
   aasm whiny_transitions: false do
     state :planning_presentation, initial: true
-    state :completed, enter: :on_completed
+    state :completed, after_enter: :on_completed
 
     event :update_schedule do
       transitions from: :planning_presentation, to: :planning_presentation

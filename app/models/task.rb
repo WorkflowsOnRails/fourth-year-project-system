@@ -57,7 +57,7 @@ class Task < ActiveRecord::Base
 
   def deadline_expired
     taskable.try(:deadline_expired!)
-    update_attributes(expired_at: DateTime.now)
+    update(expired_at: DateTime.now)
   end
 end
 
