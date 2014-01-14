@@ -3,66 +3,43 @@
 <% end %>
 
 <p>
-  Spectent hanc erectos quem zonae quoque quisque adspirate deus semina
-  flamina ille habentia montibus tuba tegi austro exemit caelum natura modo
-  mutastis campoque mea vix liquidas quam recepta fabricator valles usu homo
-  cetera carentem unda hunc tellus fontes eurus vesper norant nullus librata
-  terras animalibus satus lucis campos dei glomeravit aeris feras inminet
-  sublime sic, indigestaque recessit caelo uno densior deus orba fulgura
-  coercuit plagae!
+  Welcome to the fourth-year project system for SYSC4907 / SYSC4917!
+  This site is your primary point of ASFDF
 </p>
 
 <h2>Pending Tasks</h2>
 
 <p>
-  Nisi illi, tonitrua terris pressa fronde occiduo mundo animalibus nubes
-  mundo.
+  The following table lists tasks and deliverables that your project team has
+  not yet completed.
 </p>
 
-<table class="table table-hover table-condensed tasks-table">
-  <tbody>
-    <% @pending_tasks.each do |task| %>
-    <tr>
-      <td class="tasks-table-summary"><%= link_to task.summary, task %></td>
-      <td class="tasks-table-timestamp
-                 <% if task.overdue? %>tasks-table-overdue<% end %>">
-        <%= render_datetime task.deadline.timestamp %>
-      </td>
-    </tr>
-    <% end %>
-  <thead>
-    <tr>
-      <th class="tasks-table-summary">Task</th>
-      <th class="tasks-table-timestamp">Deadline</th>
-    </tr>
-  </thead>
-  <% if @pending_tasks.empty? %>
-  <tfoot>
-    <tr>
-      <td class="table-empty-message" colspan="2">
-        Congratulations! You do not have any pending tasks.
-      </td>
-    </tr>
-  </tfoot>
-  <% end %>
-</table>
-
+<%= render partial: 'tasks/table', locals: {
+      tasks: @pending_tasks,
+      empty_message: 'Congratulations! You do not have any pending tasks.',
+    } %>
 
 <h2>Completed Tasks</h2>
 
 <p>
-  Nisi illi, tonitrua terris pressa fronde occiduo mundo animalibus nubes
-  mundo.
+  The following table lists tasks and deliverables that your project team
+  has completed.
+  You may or may not be able to take further actions on these tasks,
+  depending on the task type.
 </p>
 
 <table class="table table-hover table-condensed tasks-table">
   <tbody>
     <% @completed_tasks.each do |task| %>
     <tr>
-      <td class="tasks-table-summary"><%= link_to task.summary, task %></td>
-      <td class="tasks-table-timestamp
-                 <% if task.late? %>tasks-table-overdue<% end %>">
+      <td class="tasks-table-summary">
+        <%= link_to task.summary, task %>
+      </td>
+      <td class="tasks-table-timestamp">
         <%= render_datetime task.completed_at %>
+        <% if task.late? %>
+          <span class="label label-warning">late</span>
+        <% end %>
       </td>
     </tr>
     <% end %>

@@ -23,21 +23,17 @@
     <% @projects.each do |project| %>
       <tr>
         <td class="projects-table-name">
-          <%= link_to project.name, project_path(id: project.id) %>
+          <%= link_to project.name, project_path(project) %>
         </td>
         <td class="projects-table-supervisor">
-          <% project.supervisors.each do |supervisor| %>
-            <%= supervisor.full_name %>
-          <% end %>
+          <%= project.supervisors.map(&:full_name).join(', ') %>
         </td>
         <td class="projects-table-members">
-          <% project.group_members.each do |member| %>
-            <%= member.full_name %>
-          <% end %>
+          <%= project.group_members.map(&:full_name).join(', ') %>
         </td>
         <td class="projects-table-programmes">
           <% project.programmes.each do |programme| %>
-            <%= programme.programme %>
+            <span class="label label-primary"><%= programme.programme %></span>
           <% end %>
         </td>
       </tr>

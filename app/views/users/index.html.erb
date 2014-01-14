@@ -6,56 +6,52 @@
 
 <% end %>
 
-<h2>Supervisors</h2>
-<table class="table table-hover table-condensed projects-supervisor-management-table">
-  <tbody>
-    <% @supervisors.each do |supervisor| %>
-      <tr>
-        <td class="projects-table-supervisor-management-name">
-          <%= supervisor.full_name %>
-        </td>
-        <td class="projects-table-supervisor-management-email">
-          <%= supervisor.email %>
-        </td>
-        <% if policy(@project).add? %>
-          <td class="projects-table-supervisor-management-add">
-            <%= button_to 'Add', project_user_add_path(@project.id, supervisor.id),
-                class: 'btn btn-xs btn-primary',
-                data: { confirm: 'Are you sure you want to Add ' + supervisor.full_name + ' to the project?' } %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-  <thead>
-    <th>Name</th>
-    <th>Email</th>
-    <th></th>
-  </thead>
-</table>
-
-<h2>Group Members</h2>
+<h2>Available Users</h2>
 <table class="table table-hover table-condensed projects-member-management-table">
   <tbody>
-    <% @group_members.each do |member| %>
+    <% if @supervisors.empty? && @group_members.empty? %>
       <tr>
-        <td class="projects-table-member-management-name">
-          <%= member.full_name %>
+        <td class="table-empty-message" colspan="4">
+          There are no users eligible to join the selected project.
         </td>
-        <td class="projects-table-user-management-email">
-          <%= member.email %>
+      </tr>
+    <% end %>
+    <% @supervisors.each do |supervisor| %>
+      <tr>
+        <td class="projects-table-supervisor-name">
+          <%= supervisor.full_name %>
         </td>
-        <td class="projects-table-user-management-number">
-          <%= member.student_number %>
+        <td class="projects-table-supervisor-email">
+          <%= mail_to supervisor.email %>
         </td>
-        <td class="projects-table-user-management-programme">
-          <%= member.programme %>
+        <td class="projects-table-member-programme">
+          <span class="label label-default">supervisor</span>
         </td>
         <% if policy(@project).add? %>
-          <td class="projects-table-member-management-add">
-            <%= button_to 'Add', project_user_add_path(@project.id, member.id),
-                class: 'btn btn-xs btn-primary',
-                data: { confirm: 'Are you sure you want to Add ' + member.full_name + ' to the project?' } %>
+          <td class="projects-table-supervisor-remove">
+            <%= button_to 'Add', project_user_add_path(@project, supervisor),
+                class: 'btn btn-xs btn-primary pull-right',
+                data: { confirm: "Are you sure you want to add #{supervisor.full_name} to the project?" } %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+    <% @group_members.each do |member| %>
+      <tr>
+        <td class="projects-table-member-name">
+          <%= member.full_name %> (<%= member.student_number %>)
+        </td>
+        <td class="projects-table-member-email">
+          <%= mail_to member.email %>
+        </td>
+        <td class="projects-table-member-programme">
+          <span class="label label-primary"><%= member.programme %></span>
+        </td>
+        <% if policy(@project).add? %>
+          <td class="projects-table-member-remove">
+            <%= button_to 'Add', project_user_add_path(@project, member),
+                class: 'btn btn-xs btn-primary pull-right',
+                data: { confirm: "Are you sure you want to add #{member.full_name} to the project?" } %>
           </td>
         <% end %>
       </tr>
@@ -64,7 +60,6 @@
   <thead>
     <th>Name</th>
     <th>Email</th>
-    <th>Student Number</th>
     <th>Programme</th>
     <th></th>
   </thead>

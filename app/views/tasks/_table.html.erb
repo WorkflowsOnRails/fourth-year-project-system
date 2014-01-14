@@ -1,0 +1,42 @@
+<table class="table table-hover table-condensed tasks-table">
+  <tbody>
+    <% tasks.each do |task| %>
+    <tr>
+      <td class="tasks-table-summary">
+        <%= link_to task.summary, task %>
+      </td>
+      <td class="tasks-table-status">
+        <%= task.taskable.aasm.human_state %>
+      </td>
+      <td class="tasks-table-timestamp">
+        <%= render_datetime task.deadline.timestamp %>
+        <% if task.overdue? %>
+          <span class="label label-warning">overdue</span>
+        <% elsif task.late? %>
+          <span class="label label-warning">late</span>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+  <thead>
+    <tr>
+      <th class="tasks-table-summary">Task</th>
+      <th class="tasks-table-status">Status</th>
+      <th class="tasks-table-timestamp">Deadline</th>
+    </tr>
+  </thead>
+  <% if tasks.empty? %>
+  <tfoot>
+    <tr>
+      <td class="table-empty-message" colspan="3">
+        <% if defined? empty_message %>
+          <%= empty_message %>
+        <% else %>
+          No assigned tasks were found.
+        <% end %>
+      </td>
+    </tr>
+  </tfoot>
+  <% end %>
+</table>

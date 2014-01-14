@@ -15,16 +15,20 @@
   <% end %>
 <% end %>
 
+<div class="project-programme-labels">
+  <strong>Programmes:</strong>
+  <% @project.programmes.each do |p| %>
+    <span class="label label-primary"><%= p.programme %></span>
+  <% end %>
+</div>
+
 <%= render_state_indicator @project %>
 
-<p>Description: <%= @project.description %></p>
+<h2>Description</h2>
+<%= simple_format @project.description, wrapper: 'p' %>
 
-<p>Programmes:
-  <%= @project.programmes.map {|p| p.programme }.join(', ') %>
-</p>
-
-<h2>Supervisor</h2>
-<table class="table table-hover table-condensed projects-supervisor-table">
+<h2>Participants</h2>
+<table class="table table-hover table-condensed projects-member-table">
   <tbody>
     <% @project.supervisors.each do |supervisor| %>
       <tr>
@@ -32,48 +36,36 @@
           <%= supervisor.full_name %>
         </td>
         <td class="projects-table-supervisor-email">
-          <%= supervisor.email %>
+          <%= mail_to supervisor.email %>
+        </td>
+        <td class="projects-table-member-programme">
+          <span class="label label-default">supervisor</span>
         </td>
         <% if policy(@project).remove? %>
           <td class="projects-table-supervisor-remove">
-            <%= button_to 'Remove', project_user_remove_path(@project.id, supervisor.id),
-                class: 'btn btn-xs btn-warning',
-                data: { confirm: 'Are you sure you want to Remove ' + supervisor.full_name + ' from the project?' } %>
+            <%= button_to 'Remove', project_user_remove_path(@project, supervisor),
+                class: 'btn btn-xs btn-warning pull-right',
+                data: { confirm: "Are you sure you want to remove #{supervisor.full_name} from the project?" } %>
           </td>
         <% end %>
       </tr>
     <% end %>
-  </tbody>
-  <thead>
-    <th>Name</th>
-    <th>Email</th>
-    <th></th>
-  </thead>
-</table>
-
-
-<h2>Group Members</h2>
-<table class="table table-hover table-condensed projects-member-table">
-  <tbody>
     <% @project.group_members.each do |member| %>
       <tr>
         <td class="projects-table-member-name">
-          <%= member.full_name %>
+          <%= member.full_name %> (<%= member.student_number %>)
         </td>
         <td class="projects-table-member-email">
-          <%= member.email %>
-        </td>
-        <td class="projects-table-member-number">
-          <%= member.student_number %>
+          <%= mail_to member.email %>
         </td>
         <td class="projects-table-member-programme">
-          <%= member.programme %>
+          <span class="label label-primary"><%= member.programme %></span>
         </td>
         <% if policy(@project).remove? %>
           <td class="projects-table-member-remove">
-            <%= button_to 'Remove', project_user_remove_path(@project.id, member.id),
-                class: 'btn btn-xs btn-warning',
-                data: { confirm: 'Are you sure you want to Remove ' + member.full_name + ' from the project?' } %>
+            <%= button_to 'Remove', project_user_remove_path(@project, member),
+                class: 'btn btn-xs btn-warning pull-right',
+                data: { confirm: "Are you sure you want to remove #{member.full_name} from the project?" } %>
           </td>
         <% end %>
       </tr>
@@ -82,8 +74,12 @@
   <thead>
     <th>Name</th>
     <th>Email</th>
-    <th>Student Number</th>
     <th>Programme</th>
     <th></th>
   </thead>
 </table>
+
+<% if policy(@project).show_tasks? %>
+  <h2>Tasks</h2>
+  <%= render partial: 'tasks/table', locals: {tasks: @project.tasks} %>
+<% end %>
