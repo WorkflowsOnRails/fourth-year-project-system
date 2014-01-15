@@ -12,7 +12,8 @@ class SupervisorTest < ActiveSupport::TestCase
     visit '/'
     login_coordinator
 
-    click_on 'Supervisors'
+    click_on 'Administration'
+    click_on 'Manage Supervisors'
     click_on 'Create Supervisor Account'
 
     within '#new_user' do
@@ -25,13 +26,11 @@ class SupervisorTest < ActiveSupport::TestCase
 
     assert page.has_content? 'Supervisor created successfully'
 
-    click_on 'Supervisors'
+    click_on 'Administration'
+    click_on 'Manage Supervisors'
 
-    #I give up with xpath and I can't figure this out
-    #Maybe later I can get this to work and test multiple supervisors and deletions
-    #puts find(:xpath, "//tr[contains(.,'#{supervisor_attrs[:full_name]}')]", :text => 'Delete').click
-
-    click_on 'Delete'
+    row_xpath = "//tr[contains(.,'#{supervisor_attrs[:full_name]}')]"
+    find(:xpath, row_xpath).click_on('Delete')
 
     assert page.has_content? 'Supervisor deleted successfully'
   end
