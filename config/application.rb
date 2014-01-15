@@ -9,6 +9,7 @@ Bundler.require(:default, Rails.env)
 module FourthYearProjectSystem
   class Application < Rails::Application
     config.autoload_paths += %W(#{config.root}/app/services)
+    config.i18n.enforce_available_locales = true
 
     config.generators do |g|
       g.orm             :active_record
