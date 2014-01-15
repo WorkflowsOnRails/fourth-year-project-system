@@ -19,8 +19,16 @@ FactoryGirl.define do
     password Random.alphanumeric
   end
 
+  factory :supervisor, class: User do
+    role User::SUPERVISOR_ROLE
+    full_name "#{Random.firstname} #{Random.lastname}"
+    email Random.email
+    password Random.alphanumeric
+  end
+
   factory :project do
     name Random.alphanumeric
     description Random.paragraphs
   end
+
 end
