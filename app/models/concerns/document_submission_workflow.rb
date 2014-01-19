@@ -20,7 +20,7 @@ module DocumentSubmissionWorkflow
     aasm do
       state :writing_submission, initial: true
       state :reviewing, enter: :notify_submitted
-      state :completed
+      state :completed, final: true
 
       event :submit do
         transitions from: [:writing_submission, :reviewing], to: :reviewing

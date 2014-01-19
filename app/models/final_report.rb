@@ -4,9 +4,9 @@ class FinalReport < ActiveRecord::Base
 
   aasm do
     event :deadline_expired do
-      after { notify_expired }
+      after :notify_expired
 
-      transitions from: :writing_submission, to: :failed,
+      transitions from: :writing_submission, to: :completed,
                   on_transition: :mark_completed
       transitions from: :reviewing, to: :completed,
                   on_transition: :on_accepted

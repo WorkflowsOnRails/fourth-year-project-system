@@ -27,10 +27,6 @@ class Project < ActiveRecord::Base
           after_enter: [:create_poster_fair_form, :create_final_report]
     state :completed
 
-    event :select_project do
-      transitions from: :suggested, to: :writing_proposal
-    end
-
     event :accept_proposal do
       transitions from: :writing_proposal, to: :writing_progress_report
     end

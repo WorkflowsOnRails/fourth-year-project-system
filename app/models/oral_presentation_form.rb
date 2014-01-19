@@ -11,7 +11,8 @@ class OralPresentationForm < ActiveRecord::Base
   aasm whiny_transitions: false do
     state :writing_submission, initial: true
     state :reviewing, enter: [:notify_submitted, :clear_users_who_accepted]
-    state :accepted, after_enter: [:notify_accepted, :record_submission]
+    state :accepted, after_enter: [:notify_accepted, :mark_completed]
+    state :completed, final: true, after_enter: :record_submission
 
     event :submit do
       transitions from: [:writing_submission, :reviewing, :accepted],
@@ -22,9 +23,14 @@ class OralPresentationForm < ActiveRecord::Base
       transitions from: :reviewing, to: :accepted,
                   guard: :all_users_accepted?
     end
+
+    event :deadline_expired do
+      transitions from: [:writing_submission, :reviewing, :accepted],
+                  to: :completed
+    end
   end
 
-  aasm_state_order [:writing_submission, :reviewing, :accepted]
+  aasm_state_order [:writing_submission, :reviewing, :accepted, :completed]
 
   serialize :accepted_user_ids, Set
   after_initialize :set_defaults
@@ -63,7 +69,7 @@ class OralPresentationForm < ActiveRecord::Base
   end
 
   def record_submission
-    mark_completed
+    mark_completed if completed_at.nil?
   end
 
   # Available times as a list of hashes, each specifying the ID of the day
