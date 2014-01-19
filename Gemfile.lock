@@ -19,6 +19,16 @@ GIT
       sass-rails (~> 4.0)
 
 GIT
+  remote: https://github.com/WorkflowsOnRails/aasm_statecharts.git
+  revision: f8d6ab8f22876b5e77714663f50c9d47dfaca984
+  branch: master
+  specs:
+    aasm_statecharts (1.0.0)
+      aasm (~> 3.0)
+      rails (~> 4.0)
+      ruby-graphviz (~> 1.0)
+
+GIT
   remote: https://github.com/WorkflowsOnRails/expirable.git
   revision: 1484b8caac9c0ca6114b985ce80a5e7cb950efee
   branch: master
@@ -223,6 +233,7 @@ GEM
       json (~> 1.4)
     responders (1.0.0)
       railties (>= 3.2, < 5)
+    ruby-graphviz (1.0.9)
     sass (3.2.13)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -286,6 +297,7 @@ DEPENDENCIES
   aasm (~> 3.0.0)
   aasm_actionable!
   aasm_progressable!
+  aasm_statecharts!
   anjlab-bootstrap-rails (>= 3.0.0.0)
   annotate (>= 2.5.0)
   better_errors

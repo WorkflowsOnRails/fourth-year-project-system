@@ -39,6 +39,12 @@ end
 gem 'puma'
 gem 'foreman'
 
+group :development do
+  gem 'aasm_statecharts',
+      git: 'https://github.com/WorkflowsOnRails/aasm_statecharts.git',
+      branch: 'master'
+end
+
 group :development, :test do
   gem 'pry'
   gem 'pry-doc'
