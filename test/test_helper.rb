@@ -6,8 +6,14 @@ require 'minitest/autorun'
 require 'capybara/dsl'
 require 'capybara/rails'
 
+SimpleCov.start do
+  add_filter "/test/"
 
-SimpleCov.start
+  add_group "Controllers", "app/controllers"
+  add_group "Models", "app/models"
+  add_group "Policies", "app/policies"
+  add_group "Services", "app/services"
+end
 
 
 class MiniTest::Unit::TestCase
