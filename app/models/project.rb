@@ -25,7 +25,7 @@ class Project < ActiveRecord::Base
     # TODO: Add view poster fair task to pending_completion
     state :pending_completion,
           after_enter: [:create_poster_fair_form, :create_final_report]
-    state :completed
+    state :completed, final: true
 
     event :accept_proposal do
       transitions from: :writing_proposal, to: :writing_progress_report
