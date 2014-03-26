@@ -36,8 +36,9 @@ h1 {
 
 h1 .btn.pull-right,
 h1 .btn-group.pull-right {
-    position: relative;
-    top: 2px;
+    position: absolute;
+    top: 12px;
+    right: 16px;
 }
 
 .btn-link,
