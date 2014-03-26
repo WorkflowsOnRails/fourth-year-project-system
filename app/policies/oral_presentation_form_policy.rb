@@ -7,4 +7,8 @@ class OralPresentationFormPolicy < BaseTaskPolicy
   def accept?
     user_participates_in_project? && !taskable.accepted_users.include?(user)
   end
+
+  def deadline_expired?
+    false
+  end
 end
